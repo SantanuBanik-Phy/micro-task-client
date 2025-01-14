@@ -5,6 +5,8 @@ import Home from "../pages/Home";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Dashboard from "../pages/Dasboard/Dasboard";
+import BuyerHome from "../pages/Buyer/BuyerHome";
 
 
 
@@ -39,10 +41,16 @@ const router = createBrowserRouter([
   element: <DashboardLayout></DashboardLayout>,
  
   children: [
-      // {
-      //     path: '',
-      //     element: <Dashboard></Dashboard>
-      // },
+      {
+          path: '',
+          element: <Dashboard></Dashboard>
+      },
+     
+    {
+        path: 'buyer-home',
+        element: <BuyerHome></BuyerHome>
+    },
+   
      
   ]
 
