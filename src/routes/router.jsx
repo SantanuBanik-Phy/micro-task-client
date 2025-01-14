@@ -10,6 +10,8 @@ import BuyerHome from "../pages/Buyer/BuyerHome";
 import BuyerAddTask from "../pages/Buyer/BuyerAddTask";
 import BuyerMyTasks from "../pages/Buyer/BuyerMyTasks";
 import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
+import BuyerPurchaseCoin from "../pages/Buyer/BuyerPurchaseCoin";
+import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
 
 
 
@@ -66,6 +68,15 @@ const router = createBrowserRouter([
 path: 'submission-list/:id',
 element: <BuyerSubmissionList></BuyerSubmissionList>,
 loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${params.id}`)
+},
+
+{
+  path: 'purchase-coin',
+  element: <BuyerPurchaseCoin></BuyerPurchaseCoin>
+},
+{
+  path: 'payment-history',
+  element: <BuyerPaymentHistory></BuyerPaymentHistory>
 },
 
 
