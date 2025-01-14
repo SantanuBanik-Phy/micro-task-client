@@ -12,6 +12,7 @@ import BuyerMyTasks from "../pages/Buyer/BuyerMyTasks";
 import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
 import BuyerPurchaseCoin from "../pages/Buyer/BuyerPurchaseCoin";
 import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
+import WorkerHome from "../pages/Worker/WorkerHome";
 
 
 
@@ -77,6 +78,10 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
 {
   path: 'payment-history',
   element: <BuyerPaymentHistory></BuyerPaymentHistory>
+},
+{
+  path: 'worker-home',
+  element: <WorkerHome></WorkerHome>
 },
 
 
