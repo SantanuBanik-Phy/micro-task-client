@@ -8,6 +8,9 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dasboard/Dasboard";
 import BuyerHome from "../pages/Buyer/BuyerHome";
 import BuyerAddTask from "../pages/Buyer/BuyerAddTask";
+import BuyerMyTasks from "../pages/Buyer/BuyerMyTasks";
+import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
+
 
 
 
@@ -55,6 +58,19 @@ const router = createBrowserRouter([
       path: 'add-task',
       element: <BuyerAddTask></BuyerAddTask>
   },
+  {
+    path: 'my-tasks',
+    element: <BuyerMyTasks></BuyerMyTasks>
+},
+{
+path: 'submission-list/:id',
+element: <BuyerSubmissionList></BuyerSubmissionList>,
+loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${params.id}`)
+},
+
+
+
+
    
      
   ]

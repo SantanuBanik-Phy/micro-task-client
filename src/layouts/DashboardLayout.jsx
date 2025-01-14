@@ -1,4 +1,4 @@
-// src/layouts/DashboardLayout.jsx
+
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
@@ -59,7 +59,7 @@ const DashboardLayout = () => {
                                         <li><Link to="/dashboard/buyer-home">Buyer Home</Link></li>
                                         <li><Link to="/dashboard/add-task">Add New Task</Link></li>
                                         <li><Link to="/dashboard/my-tasks">My Tasks</Link></li>
-                                        <li><Link to="/dashboard/my-submissions">My Submissions</Link></li>
+                                        {/* <li><Link to="/dashboard/my-submissions">My Submissions</Link></li> */}
                                         <li><Link to="/dashboard/purchase-coin">Purchase Coin</Link></li>
                                         <li><Link to="/dashboard/payment-history">Payment History</Link></li>
                                     </>
