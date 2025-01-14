@@ -1,4 +1,4 @@
-// src/pages/Dashboard/BuyerHome.jsx
+
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
@@ -24,14 +24,14 @@ const BuyerHome = () => {
     const { data: tasks = [], isLoading: tasksLoading, refetch } = useQuery({
         queryKey: ['tasks-review', user?.email],
         queryFn: async () => {
-            const res = await axios.get(`/api/tasks/review`);
+            const res = await axios.get(`http://localhost:3000/api/tasks/review`);
             return res.data;
         }
     });
 
     const handleApprove = async (submissionId, workerEmail, payableAmount) => {
         try {
-            await axios.patch(`/api/submissions/${submissionId}/approve`);
+            await axios.patch(`http://localhost:3000/api/submissions/${submissionId}/approve`);
             refetch();
         } catch (error) {
             console.error('Error approving submission:', error);
@@ -45,7 +45,7 @@ const BuyerHome = () => {
 
     const handleConfirmReject = async () => {
         try {
-            await axios.patch(`/api/submissions/${modalInfo._id}/reject`);
+            await axios.patch(`http://localhost:3000/api/submissions/${modalInfo._id}/reject`);
             refetch();
             setModalInfo(null);
         } catch (error) {

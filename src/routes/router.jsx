@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dasboard/Dasboard";
 import BuyerHome from "../pages/Buyer/BuyerHome";
+import BuyerAddTask from "../pages/Buyer/BuyerAddTask";
 
 
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         path: 'buyer-home',
         element: <BuyerHome></BuyerHome>
     },
+    {
+      path: 'add-task',
+      element: <BuyerAddTask></BuyerAddTask>
+  },
    
      
   ]
