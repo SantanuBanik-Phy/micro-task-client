@@ -15,6 +15,7 @@ const Navbar = () => {
     logOut();
     navigate("/");
   };
+  // Watch for changes in user state
 
   return (
     <nav className="bg-gray-800 text-white">

@@ -2,13 +2,14 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, setUser, fetchUserCoins } = useContext(AuthContext);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -17,49 +18,34 @@ const Register = () => {
     const password = form.password.value;
     const role = form.role.value;
 
-    // Create user using Firebase or AuthContext
-    createUser(email, password)
-      .then(result => {
-        const user = result.user;
-        console.log('User created in Firebase:', user);
-        updateUser({ displayName: name, photoURL })
-          .then(() => {
-            saveUser(name, email, role,password, photoURL);
-            toast.success('Registration successful!');
-            navigate('/'); // Navigate to dashboard or login page
-          })
-          .catch(error => console.error('Error updating Firebase user:', error));
-
-        form.reset();
-        setError('');
-      })
-      .catch(error => {
-        console.error('Error during registration:', error);
-        setError(error.message);
-      });
-  };
-
-  const saveUser = async (name, email, password, role, photoURL) => {
-    const user = { name, email,password, role, photoURL };
     try {
-      const response = await fetch('http://localhost:3000/api/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-      const data = await response.json();
+      // Create user using Firebase
+      const result = await createUser(email, password);
+      const firebaseUser = result.user;
 
-      if (response.ok) {
-        console.log('User saved successfully:', data);
-      } else {
-        console.error('Failed to save user:', data.error);
-        toast.error(data.error || 'Failed to register user');
-      }
+      console.log("User created in Firebase:", firebaseUser);
+
+      await updateUser({ displayName: name, photoURL });
+
+      // Save user to the database
+      await axios.post("http://localhost:3000/api/users/register", {
+        name,
+        email,
+        role,
+        photoURL,
+      });
+
+      // Fetch coins and update AuthContext user state
+      const coins = await fetchUserCoins(email);
+      setUser({ ...firebaseUser, coins });
+
+      toast.success("Registration successful!");
+      navigate("/"); // Navigate to home or dashboard
+      form.reset();
+      setError('');
     } catch (error) {
-      console.error('Error saving user:', error);
-      toast.error('An error occurred while registering');
+      console.error("Error during registration:", error);
+      setError(error.message);
     }
   };
 
@@ -100,7 +86,7 @@ const Register = () => {
               <label className="label">
                 <span className="label-text">Select Role</span>
               </label>
-              <select name="role" className="select select-bordered">
+              <select name="role" className="select select-bordered" defaultValue="buyer" required>
                 <option value="buyer">Buyer</option>
                 <option value="worker">Worker</option>
               </select>

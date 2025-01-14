@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword,  onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import auth from '../firebase/firebase.config';
+import axios from 'axios';
 
 
 export const AuthContext = createContext();
@@ -35,38 +36,33 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (currentUser) {
-                try {
-                    // Fetch the coin balance from the database
-                    const response = await fetch(`http://localhost:3000/api/users/coins?email=${currentUser.email}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    });
-                    const data = await response.json();
+ 
+    const fetchUserCoins = async (email) => {
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/api/users/coins?email=${email}`
+          );
+          return response.data.coins;
+        } catch (error) {
+          console.error("Error fetching user coins:", error);
+          return 0; // Default to 0 coins if fetching fails
+        }
+      };
     
-                    if (response.ok) {
-                        // Update the user object with coin balance
-                        setUser({ ...currentUser, coins: data.coins });
-                    } else {
-                        console.error("Failed to fetch user coins:", data.error);
-                    }
-                } catch (error) {
-                    console.error("Error fetching user coins:", error);
-                }
-            } else {
-                setUser(null);
-            }
-            setLoading(false);
+      useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+          if (currentUser) {
+            const coins = await fetchUserCoins(currentUser.email);
+            setUser({ ...currentUser, coins });
+          } else {
+            setUser(null);
+          }
+          setLoading(false);
         });
     
         return () => unsubscribe();
-    }, []);
+      }, []);
     
-
     const authInfo = {
         user,
         loading,
@@ -75,6 +71,8 @@ const AuthProvider = ({ children }) => {
         googleSignIn,
         logOut,
         updateUser,
+        setUser,
+        fetchUserCoins
        
     }
 

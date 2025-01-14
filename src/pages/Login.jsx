@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 import { GoogleAuthProvider } from "firebase/auth";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
-    const { signIn, googleSignIn } = useContext(AuthContext);
+    const { signIn, googleSignIn, setUser, fetchUserCoins } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,45 +26,54 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
 
-                // Get JWT token
-                fetch('http://localhost:3000/jwt', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({ email: user.email })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        localStorage.setItem('micro-tasking-token', data.token);
-                        form.reset();
-                        setError('');
-                        toast.success('Login successful!')
-                        navigate(from, { replace: true });
-                    });
+                // Fetch coins and update user state
+                fetchUserCoins(user.email).then(coins => {
+                    setUser({ ...user, coins });
+                    toast.success('Login successful!');
+                    navigate(from, { replace: true });
+                });
             })
             .catch(error => {
                 console.error(error);
                 setError(error.message);
-            })
-    }
+            });
+    };
 
-    const handleGoogleSignIn = () => {
-        googleSignIn(googleProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                toast.success('Login successful!')
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                console.error(error);
-                setError(error.message);
-            })
-    }
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await googleSignIn(googleProvider);
+            const user = result.user;
+
+            // Check if user exists in the database
+            const response = await axios.get(`http://localhost:3000/api/users?email=${user.email}`);
+            if (response.data.exists) {
+                console.log("User already exists in database.");
+            } else {
+                console.log("New user, saving to database...");
+                // Save the new user to the database
+                await axios.post("http://localhost:3000/api/users/register", {
+                    name: user.displayName,
+                    email: user.email,
+                    role: "worker", // Default role for Google Sign-In users
+                    photoURL: user.photoURL,
+                });
+            }
+
+            // Fetch coins and update user state
+            const coins = await fetchUserCoins(user.email);
+            setUser({ ...user, coins });
+
+            toast.success('Login successful!');
+            navigate(from, { replace: true });
+        } catch (error) {
+            console.error("Error during Google Sign-In:", error);
+            setError(error.message);
+        }
+    };
 
     return (
         <div className="hero min-h-screen bg-base-200">
+            <Toaster></Toaster>
             <div className="hero-content flex-col">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Login now!</h1>
