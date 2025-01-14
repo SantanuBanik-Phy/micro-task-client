@@ -41,8 +41,8 @@ const BuyerAddTask = () => {
                     const task = {
                         title: data.title,
                         detail: data.detail,
-                        requiredWorkers: data.requiredWorkers,
-                        payableAmount: data.payableAmount,
+                        requiredWorkers: parseInt(data.requiredWorkers), // Convert to number
+                        payableAmount: parseInt(data.payableAmount), 
                         completionDate: data.completionDate,
                         submissionInfo: data.submissionInfo,
                         taskImageUrl: imgData.data.url,
@@ -54,17 +54,22 @@ const BuyerAddTask = () => {
 
                     axios
                         .post('http://localhost:3000/api/tasks', task)
-                        .then((data) => {
+                        .then(data => {
                             console.log(data.data);
                             if (data.data.insertedId) {
                                 toast.success('Task added successfully!');
                                 navigate('/dashboard/my-tasks');
                             }
                         })
-                        .catch((err) => {
-                            console.error(err);
-                            toast.error('Failed to add task. Please try again.');
-                        });
+                        .catch(err => {
+                            console.error(err)
+                            if (err.response && err.response.status === 402) {
+                                toast.error('Insufficient coins. Please purchase more coins.');
+                                navigate('/dashboard/purchase-coin');
+                            } else {
+                                toast.error('Failed to add task. Please try again.');
+                            }
+                        })
                 }
             });
     };
