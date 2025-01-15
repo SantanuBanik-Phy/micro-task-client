@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
@@ -13,9 +12,8 @@ import { AuthContext } from '../../provider/AuthProvider';
 const TaskDetails = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm(); // Destructure errors
     const navigate = useNavigate();
-    
 
     const { data: task = {}, isLoading } = useQuery({
         queryKey: ['task', id],
@@ -23,15 +21,18 @@ const TaskDetails = () => {
             const res = await axios.get(`http://localhost:3000/api/tasks/${id}`);
             return res.data;
         }
-    })
+    });
 
     const onSubmit = async (data) => {
         try {
             const submissionData = {
                 taskId: id,
-                submissionDetails: data.submissionDetails
+                submissionDetails: data.submissionDetails,
+                workerEmail: user?.email, // Add worker email
+                workerName: user?.displayName, // Add worker name
             };
-            const response = await axios.post('/api/submissions', submissionData);
+    
+            const response = await axios.post('http://localhost:3000/api/submissions', submissionData);
             if (response.status === 201) {
                 toast.success('Submission created successfully!');
                 navigate('/dashboard/my-submissions');
@@ -45,9 +46,10 @@ const TaskDetails = () => {
             }
         }
     };
+    
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return <div>Loading...</div>;
     }
 
     return (

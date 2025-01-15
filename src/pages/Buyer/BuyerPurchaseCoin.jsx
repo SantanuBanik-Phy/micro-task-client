@@ -1,8 +1,7 @@
-// src/pages/Buyer/BuyerPurchaseCoin.jsx
 import React from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 
-import { Elements } from '@stripe/react-stripe-js';
-
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 
@@ -15,9 +14,10 @@ const coinPackages = [
 ];
 
 const BuyerPurchaseCoin = () => {
-    const handlePayment = (price) => {
-        console.log('Payment amount:', price);
-        // Implement payment logic TODO: implement
+    const navigate = useNavigate();
+
+    const handlePurchase = (coins, price) => {
+        navigate(`/dashboard/checkout`, { state: { coins, price } });
     };
 
     return (
@@ -25,32 +25,24 @@ const BuyerPurchaseCoin = () => {
             <Helmet>
                 <title>Purchase Coin - Micro Task Platform</title>
             </Helmet>
-            <h2 className="text-2xl font-bold mb-4">Purchase Coins</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <h2 className="text-4xl font-bold text-center text-indigo-700 mb-10">Purchase Coins</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {coinPackages.map((pack, index) => (
-                    <div key={index} className="card bg-base-100 shadow-xl">
+                    <div key={index} className="card bg-white shadow-lg border rounded-lg p-6">
                         <div className="card-body text-center">
-                            <h3 className="text-xl font-semibold">{pack.coins} Coins</h3>
-                            <p className="text-2xl font-bold">${pack.price}</p>
-                            <div className="card-actions justify-center">
-                                <button
-                                    onClick={() => handlePayment(pack.price)}
-                                    className="btn btn-primary"
-                                >
-                                    Buy Now
-                                </button>
-                            </div>
+                            <h3 className="text-2xl font-semibold text-gray-800">{pack.coins} Coins</h3>
+                            <p className="text-3xl font-bold text-indigo-600">${pack.price}</p>
+                            <p className="text-gray-500 mt-2">Best value for your tasks!</p>
+                            <button
+                                onClick={() => handlePurchase(pack.coins, pack.price)}
+                                className="btn btn-primary mt-4 w-full"
+                            >
+                                Buy Now
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
-
-            {/* Stripe Payment */}
-            {/* <div className="mt-8">
-                <Elements stripe={stripePromise}>
-                    <CheckoutForm />
-                </Elements>
-            </div> */}
         </div>
     );
 };

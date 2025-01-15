@@ -13,6 +13,17 @@ import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
 import BuyerPurchaseCoin from "../pages/Buyer/BuyerPurchaseCoin";
 import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
 import WorkerHome from "../pages/Worker/WorkerHome";
+import WorkerTaskList from "../pages/Worker/WorkerTaskList";
+import WorkerMySubmissions from "../pages/Worker/WorkerMySubmissions";
+import AdminHome from "../pages/Admin/AdminHome";
+import WorkerWithdrawals from "../pages/Worker/WorkerWithdrawals";
+import ManageUsers from "../pages/Admin/ManageUsers";
+import ManageTasks from "../pages/Admin/MangeTasks";
+import ManageSubmissions from "../pages/Admin/ManageSubmissions";
+import TaskDetails from "../pages/Shared/TaskDetails";
+import BuyerEditTask from "../pages/Shared/BuyerEditTask";
+import Checkout from "../pages/Buyer/Checkout";
+
 
 
 
@@ -83,6 +94,50 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
   path: 'worker-home',
   element: <WorkerHome></WorkerHome>
 },
+// {
+//   path: 'worker-task-list',
+//   element: <WorkerTaskList></WorkerTaskList>
+// },
+// {
+//   path: 'my-submissions',
+//   element: <WorkerMySubmissions></WorkerMySubmissions>
+// },
+// {
+//   path: 'withdrawals',
+//   element: <WorkerWithdrawals></WorkerWithdrawals>
+// },
+
+// {
+//   path: 'admin-home',
+//   element: <AdminHome></AdminHome>
+// },
+// {
+//   path: 'manage-users',
+//   element:<ManageUsers></ManageUsers>
+// },
+// {
+//   path: 'manage-tasks',
+//   element: <ManageTasks></ManageTasks>
+// },
+// {
+//   path: 'manage-submissions',
+//   element: <ManageSubmissions></ManageSubmissions>
+// },
+
+{
+  path: 'task-details/:id',
+  element: <TaskDetails></TaskDetails>,
+  loader: ({ params }) => fetch(`http://localhost:3000/api/tasks/${params.id}`)
+},
+{
+  path: 'edit-task/:id',
+  element: <BuyerEditTask></BuyerEditTask>,
+  loader: ({ params }) => fetch(`http://localhost:3000/api/tasks/${params.id}`)
+},
+{
+  path:'checkout',
+  element: <Checkout></Checkout>
+}
 
 
 

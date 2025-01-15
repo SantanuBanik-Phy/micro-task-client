@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
 import axios from 'axios';
@@ -14,6 +12,9 @@ const BuyerAddTask = () => {
     const [previewImage, setPreviewImage] = useState(null); // State for image preview
     const imageHostKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const navigate = useNavigate();
+
+    // Access the refetch function from DashboardLayout
+    const { refetchUserCoins } = useOutletContext();
 
     const handleImagePreview = (file) => {
         if (file) {
@@ -36,13 +37,12 @@ const BuyerAddTask = () => {
         })
             .then((res) => res.json())
             .then((imgData) => {
-              
                 if (imgData.success) {
                     const task = {
                         title: data.title,
                         detail: data.detail,
                         requiredWorkers: parseInt(data.requiredWorkers), // Convert to number
-                        payableAmount: parseInt(data.payableAmount), 
+                        payableAmount: parseInt(data.payableAmount),
                         completionDate: data.completionDate,
                         submissionInfo: data.submissionInfo,
                         taskImageUrl: imgData.data.url,
@@ -55,22 +55,24 @@ const BuyerAddTask = () => {
                     axios
                         .post('http://localhost:3000/api/tasks', task)
                         .then(data => {
-                            console.log(data.data);
                             if (data.data.insertedId) {
                                 toast.success('Task added successfully!');
+                                refetchUserCoins(); // Refetch coins immediately after task addition
                                 navigate('/dashboard/my-tasks');
                             }
                         })
                         .catch(err => {
-                            console.error(err)
                             if (err.response && err.response.status === 402) {
                                 toast.error('Insufficient coins. Please purchase more coins.');
                                 navigate('/dashboard/purchase-coin');
                             } else {
                                 toast.error('Failed to add task. Please try again.');
                             }
-                        })
+                        });
                 }
+            })
+            .catch(() => {
+                toast.error('Image upload failed. Please try again.');
             });
     };
 
@@ -79,7 +81,7 @@ const BuyerAddTask = () => {
             <Helmet>
                 <title>Add Task - Micro Task Platform</title>
             </Helmet>
-            <Toaster></Toaster>
+            <Toaster />
             <h2 className="text-2xl font-bold mb-4">Add New Task</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* Task title */}
@@ -158,7 +160,7 @@ const BuyerAddTask = () => {
                     {errors.submissionInfo && <p className="text-red-500">{errors.submissionInfo.message}</p>}
                 </div>
 
-                {/* Task image URL */}
+                {/* Task image */}
                 <div className="form-control w-full mb-4">
                     <label className="label">
                         <span className="label-text">Task Image</span>
@@ -167,7 +169,7 @@ const BuyerAddTask = () => {
                         type="file"
                         {...register("taskImageUrl", {
                             required: "Task image is required",
-                            onChange: (e) => handleImagePreview(e.target.files[0]), // Show preview on change
+                            onChange: (e) => handleImagePreview(e.target.files[0]),
                         })}
                         className="file-input file-input-bordered w-full"
                     />
