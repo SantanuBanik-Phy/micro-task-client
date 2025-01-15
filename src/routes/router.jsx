@@ -14,9 +14,9 @@ import BuyerPurchaseCoin from "../pages/Buyer/BuyerPurchaseCoin";
 import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
 import WorkerHome from "../pages/Worker/WorkerHome";
 import WorkerTaskList from "../pages/Worker/WorkerTaskList";
-// import WorkerMySubmissions from "../pages/Worker/WorkerMySubmissions";
+import WorkerMySubmissions from "../pages/Worker/WorkerMySubmissions";
 // import AdminHome from "../pages/Admin/AdminHome";
-// import WorkerWithdrawals from "../pages/Worker/WorkerWithdrawals";
+import WorkerWithdrawals from "../pages/Worker/WorkerWithdrawals";
 // import ManageUsers from "../pages/Admin/ManageUsers";
 // import ManageTasks from "../pages/Admin/MangeTasks";
 // import ManageSubmissions from "../pages/Admin/ManageSubmissions";
@@ -98,14 +98,14 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
   path: 'worker-task-list',
   element: <WorkerTaskList></WorkerTaskList>
 },
-// // {
-//   path: 'my-submissions',
-//   element: <WorkerMySubmissions></WorkerMySubmissions>
-// },
-// {
-//   path: 'withdrawals',
-//   element: <WorkerWithdrawals></WorkerWithdrawals>
-// },
+ {
+  path: 'my-submissions',
+  element: <WorkerMySubmissions></WorkerMySubmissions>
+},
+{
+  path: 'withdrawals',
+  element: <WorkerWithdrawals></WorkerWithdrawals>
+},
 
 // {
 //   path: 'admin-home',
