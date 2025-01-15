@@ -5,6 +5,12 @@ import BestWorkers from "../components/BestWorkers";
 import TestimonialSection from "../components/TestimonialSection";
 
 import { Helmet } from "react-helmet";
+import WhyChooseUs from "../components/WhyChooseUs";
+
+import ReactCountUp from "../components/ReactCountUp";
+import HowItWorks from "../components/HowItWorks";
+
+import BenefitsAndAdvantages from "../components/BenefitsAdvantages";
 
 const Home = () => {
     const [workers, setWorkers] = useState([]);
@@ -36,6 +42,14 @@ const Home = () => {
             <section className="w-11/12 mx-auto py-8"> <BestWorkers workers={workers} loading={loading} /></section>
             
             <section className="w-11/12 mx-auto py-8" > <TestimonialSection /></section>
+           
+            <section className="w-11/12 mx-auto py-8" > <WhyChooseUs></WhyChooseUs></section>
+         
+            <section className="w-11/12 mx-auto py-8" > <ReactCountUp></ReactCountUp> </section>
+            <section className="w-11/12 mx-auto py-8" > <HowItWorks></HowItWorks> </section>
+            <section className="w-11/12 mx-auto py-8" > <BenefitsAndAdvantages></BenefitsAndAdvantages> </section>
+             
+
      
             
         </div>
