@@ -19,7 +19,7 @@ const Home = () => {
     useEffect(() => {
         const fetchWorkers = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/users?role=worker&sort=coins&limit=6');
+                const response = await axios.get('http://localhost:3000/best/users?role=worker&sort=coins&limit=6');
                 setWorkers(response.data);
             } catch (error) {
                 console.error("Error fetching workers:", error);
