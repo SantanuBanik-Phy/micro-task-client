@@ -5,6 +5,7 @@ import { Toaster, toast } from 'react-hot-toast';
 
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import { FaUsers, FaDollarSign, FaCoins, FaShoppingCart } from 'react-icons/fa';
 
 const AdminHome = () => {
     const { user } = useContext(AuthContext);
@@ -65,58 +66,78 @@ const AdminHome = () => {
     }
 
     return (
-        <div className="p-8">
+        <div className="px-4">
             <Helmet>
                 <title>Admin Home - Micro Task Platform</title>
             </Helmet>
             <Toaster></Toaster>
-            <h2 className="text-4xl font-bold text-center text-indigo-700 mb-10">Welcome, Admin {user?.displayName}</h2>
+            <h2 className="lg:text-5xl text-3xl font-bold text-center text-Black mb-10">Welcome,Admin <span className='text-blue-900'> {user?.displayName}</span></h2>
             {/* Stats Section */}
-            <div className="stats shadow w-full">
-                {/* Stats Cards */}
-                <div className="stat">
-                    <div className="stat-title">Total Workers</div>
-                    <div className="stat-value">{stats.totalWorkers || 0}</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+                    <FaUsers className="text-blue-500 w-12 h-12 mr-4" />
+                    <div>
+                        <p className="text-gray-500 font-medium">Total Workers</p>
+                        <p className="text-xl font-bold text-indigo-600">{stats.totalWorkers || 0}</p>
+                    </div>
                 </div>
-                <div className="stat">
-                    <div className="stat-title">Total Buyers</div>
-                    <div className="stat-value">{stats.totalBuyers || 0}</div>
+                <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+                    <FaShoppingCart className="text-green-500 w-12 h-12 mr-4" />
+                    <div>
+                        <p className="text-gray-500 font-medium">Total Buyers</p>
+                        <p className="text-xl font-bold text-green-600">{stats.totalBuyers || 0}</p>
+                    </div>
                 </div>
-                <div className="stat">
-                    <div className="stat-title">Total Coins</div>
-                    <div className="stat-value">{stats.totalCoins || 0}</div>
+                <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+                    <FaCoins className="text-yellow-500 w-12 h-12 mr-4" />
+                    <div>
+                        <p className="text-gray-500 font-medium">Total Coins</p>
+                        <p className="text-xl font-bold text-yellow-600">{stats.totalCoins || 0}</p>
+                    </div>
                 </div>
-                <div className="stat">
-                    <div className="stat-title">Total Payments</div>
-                    <div className="stat-value">{stats.totalPayments || 0}</div>
+                <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
+                    <FaDollarSign className="text-red-500 w-12 h-12 mr-4" />
+                    <div>
+                        <p className="text-gray-500 font-medium">Total Payments</p>
+                        <p className="text-xl font-bold text-red-600">${stats.totalPayments || 0}</p>
+                    </div>
                 </div>
             </div>
-
             {/* Withdrawal Requests */}
-            <div className="mt-8">
+            <div>
                 <h3 className="text-2xl font-bold mb-4">Withdrawal Requests</h3>
                 {withdrawals.length > 0 ? (
-                    <div className="overflow-x-auto">
-                        <table className="table table-zebra w-full">
-                            <thead>
+                    <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+                        <table className="table-auto w-full border-collapse border border-gray-200">
+                            <thead className="bg-indigo-50">
                                 <tr>
-                                    <th>Worker Name</th>
-                                    <th>Withdrawal Amount</th>
-                                    <th>Payment System</th>
-                                    <th>Account Number</th>
-                                    <th>Actions</th>
+                                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">
+                                        Worker Name
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">
+                                        Withdrawal Amount
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">
+                                        Payment System
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">
+                                        Account Number
+                                    </th>
+                                    <th className="px-4 py-3 text-center text-sm font-bold text-gray-600">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {withdrawals.map((withdrawal) => (
-                                    <tr key={withdrawal._id}>
-                                        <td>{withdrawal.workerName}</td>
-                                        <td>{withdrawal.withdrawalAmount}</td>
-                                        <td>{withdrawal.paymentSystem}</td>
-                                        <td>{withdrawal.accountNumber}</td>
-                                        <td>
+                                    <tr key={withdrawal._id} className="hover:bg-gray-50 border-t">
+                                        <td className="px-4 py-3">{withdrawal.workerName}</td>
+                                        <td className="px-4 py-3">${withdrawal.withdrawalAmount}</td>
+                                        <td className="px-4 py-3">{withdrawal.paymentSystem}</td>
+                                        <td className="px-4 py-3">{withdrawal.accountNumber}</td>
+                                        <td className="px-4 py-3 text-center">
                                             {successIds.includes(withdrawal._id) ? (
-                                                <span className="badge badge-success">Success</span>
+                                                <span className="badge badge-success ">Success</span>
                                             ) : (
                                                 <button
                                                     onClick={() =>
@@ -126,7 +147,7 @@ const AdminHome = () => {
                                                             withdrawal.withdrawalCoin
                                                         )
                                                     }
-                                                    className="btn btn-sm btn-success"
+                                                    className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
                                                     disabled={
                                                         processingIds.includes(withdrawal._id) ||
                                                         withdrawal.status === 'approved'
