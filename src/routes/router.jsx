@@ -15,10 +15,10 @@ import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
 import WorkerHome from "../pages/Worker/WorkerHome";
 import WorkerTaskList from "../pages/Worker/WorkerTaskList";
 import WorkerMySubmissions from "../pages/Worker/WorkerMySubmissions";
-// import AdminHome from "../pages/Admin/AdminHome";
+import AdminHome from "../pages/Admin/AdminHome";
 import WorkerWithdrawals from "../pages/Worker/WorkerWithdrawals";
-// import ManageUsers from "../pages/Admin/ManageUsers";
-// import ManageTasks from "../pages/Admin/MangeTasks";
+import ManageUsers from "../pages/Admin/ManageUsers";
+import ManageTasks from "../pages/Admin/MangeTasks";
 // import ManageSubmissions from "../pages/Admin/ManageSubmissions";
 import TaskDetails from "../pages/Shared/TaskDetails";
 import BuyerEditTask from "../pages/Shared/BuyerEditTask";
@@ -107,18 +107,18 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
   element: <WorkerWithdrawals></WorkerWithdrawals>
 },
 
-// {
-//   path: 'admin-home',
-//   element: <AdminHome></AdminHome>
-// },
-// {
-//   path: 'manage-users',
-//   element:<ManageUsers></ManageUsers>
-// },
-// {
-//   path: 'manage-tasks',
-//   element: <ManageTasks></ManageTasks>
-// },
+{
+  path: 'admin-home',
+  element: <AdminHome></AdminHome>
+},
+{
+  path: 'manage-users',
+  element:<ManageUsers></ManageUsers>
+},
+{
+  path: 'manage-tasks',
+  element: <ManageTasks></ManageTasks>
+},
 // {
 //   path: 'manage-submissions',
 //   element: <ManageSubmissions></ManageSubmissions>
