@@ -39,9 +39,9 @@ const WorkerWithdrawals = () => {
 
     const handleWithdrawal = (data) => {
         const withdrawalData = {
-            workerEmail: user?.email, // Pass the worker's email
+            workerEmail: user?.email,
             withdrawalCoin: data.withdrawalCoin,
-            withdrawalAmount: coin / 20, // Calculate withdrawal amount
+            withdrawalAmount: coin / 20,
             paymentSystem: data.paymentSystem,
             accountNumber: data.accountNumber,
         };
@@ -54,81 +54,106 @@ const WorkerWithdrawals = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex justify-center items-center h-64">
+                <span className="loading loading-spinner"></span>
+            </div>
+        );
     }
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto px-4 ">
             <Helmet>
                 <title>Withdrawals - Micro Task Platform</title>
             </Helmet>
-            <Toaster></Toaster>
-            <h2 className="text-2xl font-bold mb-4">Withdrawals</h2>
+            <Toaster />
+            <h2 className="text-4xl font-bold text-center text-black mb-8">Withdrawals</h2>
 
-            <div className="bg-base-100 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4">Your Earnings</h3>
-                <div className="flex items-center mb-6">
-                    <div className="stat-figure text-secondary mr-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="flex items-center justify-between mb-6">
                     <div>
-                        <p className="text-lg font-medium">Available Coins:</p>
-                        <p className="text-2xl font-bold text-primary">{worker.coins || 0}</p>
+                        <h3 className="text-xl font-semibold text-gray-700">Your Earnings</h3>
+                        <p className="text-sm text-gray-500">Manage your withdrawals efficiently</p>
+                    </div>
+                    <div className="bg-indigo-100 p-4 rounded-lg shadow-inner">
+                        <p className="text-black-600 font-semibold">Available Coins:</p>
+                        <p className="text-2xl font-bold text-orange-500">{worker.coins || 0}</p>
                     </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Withdrawal Form</h3>
-                <form onSubmit={handleSubmit(handleWithdrawal)}>
-                    <div className="form-control w-full mb-4">
+
+                <h3 className="text-xl font-semibold text-gray-700 mb-4">Withdrawal Form</h3>
+                <form onSubmit={handleSubmit(handleWithdrawal)} className="space-y-4">
+                    {/* Coins to Withdraw */}
+                    <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Coins to Withdraw</span>
+                            <span className="label-text text-gray-700 font-medium">Coins to Withdraw</span>
                         </label>
                         <input
                             type="number"
-                            {...register("withdrawalCoin", {
-                                required: "Withdrawal coin is required",
+                            {...register('withdrawalCoin', {
+                                required: 'Withdrawal coin is required',
                                 min: 200,
                                 max: worker.coins,
-                                onChange: (e) => handleCoinChange(e),
+                                onChange: handleCoinChange,
                             })}
                             className="input input-bordered w-full"
+                            placeholder="Enter coins"
                         />
+                        {worker.coins < 200 && (
+                            <p className="text-red-500 text-sm mt-1">Insufficient coins (min 200 required)</p>
+                        )}
                     </div>
-                    <div className="form-control w-full mb-4">
+
+                    {/* Withdrawal Amount */}
+                    <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Withdrawal Amount ($)</span>
+                            <span className="label-text text-gray-700 font-medium">Withdrawal Amount ($)</span>
                         </label>
                         <input
                             type="number"
-                            value={coin / 20}
+                            value={coin / 20 || 0}
                             readOnly
                             className="input input-bordered w-full"
                         />
                     </div>
-                    <div className="form-control w-full mb-4">
+
+                    {/* Payment System */}
+                    <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Payment System</span>
+                            <span className="label-text text-gray-700 font-medium">Payment System</span>
                         </label>
                         <select
-                            {...register("paymentSystem", { required: "Payment system is required" })}
+                            {...register('paymentSystem', { required: 'Payment system is required' })}
                             className="select select-bordered w-full"
                         >
                             <option value="bkash">Bkash</option>
                             <option value="rocket">Rocket</option>
                             <option value="nagad">Nagad</option>
+                            <option value="upay">Upay</option>
                         </select>
                     </div>
-                    <div className="form-control w-full mb-4">
+
+                    {/* Account Number */}
+                    <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Account Number</span>
+                            <span className="label-text text-gray-700 font-medium">Account Number</span>
                         </label>
                         <input
                             type="text"
-                            {...register("accountNumber", { required: "Account number is required" })}
+                            {...register('accountNumber', { required: 'Account number is required' })}
                             className="input input-bordered w-full"
+                            placeholder="Enter account number"
                         />
                     </div>
-                    {worker.coins < 200 && <p className='text-red-500 text-center'>Insufficient coin</p>}
-                    <input type="submit" className="btn btn-primary w-full" value="Withdraw" disabled={withdrawalLoading || worker.coins < 200} />
+
+                    {/* Submit Button */}
+                    <button
+                        type="submit"
+                        disabled={withdrawalLoading || worker.coins < 200}
+                        className="w-full bg-gradient-to-r  from-red-400 to-yellow-500 text-white font-semibold py-3 rounded-md shadow-md hover:bg-indigo-700 transition"
+                    >
+                        {withdrawalLoading ? 'Processing...' : 'Withdraw'}
+                    </button>
                 </form>
             </div>
         </div>
