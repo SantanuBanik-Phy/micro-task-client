@@ -49,7 +49,7 @@ const DashboardLayout = () => {
             const res = await axios.get(`http://localhost:3000/api/users/${user.email}`);
             return res.data;
         },
-        enabled: !!user?.email, // Only fetch data if the user is logged in
+        enabled: !!user?.email, 
     });
 
     return (

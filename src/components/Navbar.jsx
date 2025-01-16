@@ -15,7 +15,7 @@ const Navbar = () => {
   const activeStyle = "bg-gradient-to-r from-red-500 to-yellow-500 text-white px-4 py-2 rounded";
 
   return (
-    <nav className="inset-0 bg-black bg-opacity-50 z-10 text-white shadow-lg">
+    <nav className="inset-0  z-10 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -68,7 +68,7 @@ const Navbar = () => {
                   >
                     <li>
                       <NavLink
-                        to="/dashboard/user-profile"
+                        to="profile"
                         className={({ isActive }) => (isActive ? activeStyle : "text-black hover:bg-gray-200")}
                       >
                         Profile
@@ -157,7 +157,7 @@ const Navbar = () => {
                   Coins: {user?.coins || 0}
                 </span>
                 <NavLink
-                  to="/dashboard/user-profile"
+                  to="/profile"
                   className={({ isActive }) =>
                     isActive ? `${activeStyle} block` : "block px-3 py-2 rounded-md text-base hover:bg-gray-600"
                   }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import { FaClipboardList, FaHourglassHalf, FaDollarSign } from 'react-icons/fa';
 
 const WorkerHome = () => {
     const { user } = useContext(AuthContext);
@@ -47,10 +48,7 @@ const WorkerHome = () => {
                 {/* Total Submissions */}
                 <div className="shadow-lg rounded-lg p-4 bg-indigo-50 flex items-center">
                     <div className="stat-icon text-blue-500 mr-4">
-                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                            <path d="M12 7l-5 5h10z" />
-                        </svg>
+                        <FaClipboardList className="w-12 h-12" />
                     </div>
                     <div>
                         <div className="stat-title text-gray-500">Total Submissions</div>
@@ -61,9 +59,7 @@ const WorkerHome = () => {
                 {/* Pending Submissions */}
                 <div className="shadow-lg rounded-lg p-4 bg-yellow-50 flex items-center">
                     <div className="stat-icon text-yellow-500 mr-4">
-                    <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-6h2v6zm0-8h-2V6h2v2z" />
-                        </svg>
+                        <FaHourglassHalf className="w-12 h-12" />
                     </div>
                     <div>
                         <div className="stat-title text-gray-500">Pending Submissions</div>
@@ -74,10 +70,7 @@ const WorkerHome = () => {
                 {/* Total Earnings */}
                 <div className="shadow-lg rounded-lg p-4 bg-green-50 flex items-center">
                     <div className="stat-icon text-green-500 mr-4">
-                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L1.8 21h20.4L12 2zm0 3.3L19.3 19H4.7L12 5.3z" />
-                            <path d="M11 16h2v2h-2zm0-8h2v6h-2z" />
-                        </svg>
+                        <FaDollarSign className="w-12 h-12" />
                     </div>
                     <div>
                         <div className="stat-title text-gray-500">Total Earnings</div>

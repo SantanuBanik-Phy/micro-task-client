@@ -23,6 +23,7 @@ import ManageTasks from "../pages/Admin/MangeTasks";
 import TaskDetails from "../pages/Shared/TaskDetails";
 import BuyerEditTask from "../pages/Shared/BuyerEditTask";
 import Checkout from "../pages/Buyer/Checkout";
+import UserProfile from "../pages/Dasboard/UserProfile";
 
 
 
@@ -52,11 +53,18 @@ const router = createBrowserRouter([
           path: '/register',
           element: <Register></Register>
       },
+      {
+        path:'/profile',
+        element: <UserProfile></UserProfile>
+      },
+      
+      
   ]
 },
 {
   path: '/dashboard',
   element: <DashboardLayout></DashboardLayout>,
+
  
   children: [
       {
@@ -137,7 +145,11 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
 {
   path:'checkout',
   element: <Checkout></Checkout>
-}
+},
+
+
+
+
 
 
 
@@ -151,6 +163,7 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
   //   path: "*",
   //   element: <ErrorPage></ErrorPage>
   // },
+ 
 ]);
 
 export default router;

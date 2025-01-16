@@ -148,12 +148,16 @@ const WorkerWithdrawals = () => {
 
                     {/* Submit Button */}
                     <button
-                        type="submit"
-                        disabled={withdrawalLoading || worker.coins < 200}
-                        className="w-full bg-gradient-to-r  from-red-400 to-yellow-500 text-white font-semibold py-3 rounded-md shadow-md hover:bg-indigo-700 transition"
-                    >
-                        {withdrawalLoading ? 'Processing...' : 'Withdraw'}
-                    </button>
+    type="submit"
+    disabled={withdrawalLoading || worker.coins < 200}
+    className={`w-full font-semibold py-3 rounded-md shadow-md transition ${
+        worker.coins < 200
+            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            : 'bg-gradient-to-r from-red-400 to-yellow-500 text-white hover:bg-indigo-700'
+    }`}
+>
+    {withdrawalLoading ? 'Processing...' : 'Withdraw'}
+</button>
                 </form>
             </div>
         </div>
