@@ -123,7 +123,7 @@ const DashboardLayout = () => {
             {/* Dashboard Content */}
             <div className="flex">
   {/* Sidebar */}
-  <div className="bg-gradient-to-r from-blue-950 to-blue-500 text-white w-20 lg:w-80 h-screen flex-shrink-0">
+  <div className="bg-gradient-to-r from-blue-950 to-blue-500 text-white w-20 lg:w-80  flex-shrink-0">
     <ul className="menu p-4 h-full">
       {/* Admin Routes */}
       {isAdmin ? (
@@ -301,7 +301,7 @@ const DashboardLayout = () => {
       {/* Navbar Header */}
       <h1 className="text-xl font-bold  px-4 py-2"> <span className="text-blue-900">{userData?.role || "User"}</span>  Dashboard</h1>
     </div>
-    <div className="md:p-16 p-4">
+    <div className="md:p-16 p-4  bg-[url('https://i.ibb.co.com/4SW6pgV/19366.jpg')] bg-cover bg-center bg-no-repeat">
       <Outlet context={{ refetchUserCoins: refetch }} />
     </div>
   </div>

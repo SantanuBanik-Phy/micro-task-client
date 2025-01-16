@@ -56,55 +56,72 @@ const BuyerEditTask = () => {
     }
 
     return (
-        <div className="container mx-auto py-8">
-            <Helmet>
-                <title>Edit Task - Micro Task Platform</title>
-            </Helmet>
-            <h2 className="text-2xl font-bold mb-4">Edit Task</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {/* Task title */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Task Title</span>
-                    </label>
-                    <input
-                        type="text"
-                        defaultValue={task?.title}
-                        {...register("title", { required: "Task title is required" })}
-                        className="input input-bordered w-full"
-                    />
-                    {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-                </div>
-
-                {/* Task details */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Task Details</span>
-                    </label>
-                    <textarea
-                        defaultValue={task?.detail}
-                        {...register("detail", { required: "Task details are required" })}
-                        className="textarea textarea-bordered w-full"
-                    />
-                    {errors.detail && <p className="text-red-500">{errors.detail.message}</p>}
-                </div>
-
-                {/* Submission info */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Submission Info</span>
-                    </label>
-                    <textarea
-                        defaultValue={task?.submissionInfo}
-                        {...register("submissionInfo", { required: "Submission info is required" })}
-                        className="textarea textarea-bordered w-full"
-                    />
-                    {errors.submissionInfo && <p className="text-red-500">{errors.submissionInfo.message}</p>}
-                </div>
-
-                <input type="submit" className="btn btn-primary" value="Update Task" disabled={taskLoading} />
-            </form>
-        </div>
+        <div className="container mx-auto py-8 px-4 lg:px-8">
+        <Helmet>
+          <title>Edit Task - Micro Task Platform</title>
+        </Helmet>
+        <h2 className="lg:text-5xl text-3xl font-extrabold text-gray-800 mb-6 text-center">Edit Task</h2>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-white shadow-lg rounded-lg p-6 space-y-6"
+        >
+          {/* Task title */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Task Title</span>
+            </label>
+            <input
+              type="text"
+              defaultValue={task?.title}
+              {...register("title", { required: "Task title is required" })}
+              className="input input-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Enter task title"
+            />
+            {errors.title && <p className="text-red-500 mt-2">{errors.title.message}</p>}
+          </div>
+      
+          {/* Task details */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Task Details</span>
+            </label>
+            <textarea
+              defaultValue={task?.detail}
+              {...register("detail", { required: "Task details are required" })}
+              className="textarea textarea-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Describe the task in detail"
+            />
+            {errors.detail && <p className="text-red-500 mt-2">{errors.detail.message}</p>}
+          </div>
+      
+          {/* Submission info */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Submission Info</span>
+            </label>
+            <textarea
+              defaultValue={task?.submissionInfo}
+              {...register("submissionInfo", { required: "Submission info is required" })}
+              className="textarea textarea-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Provide submission instructions"
+            />
+            {errors.submissionInfo && <p className="text-red-500 mt-2">{errors.submissionInfo.message}</p>}
+          </div>
+      
+          {/* Submit Button */}
+          <div className="text-center">
+            <input
+              type="submit"
+              className={`btn w-full py-2 text-lg font-semibold tracking-wide ${
+                taskLoading ? "btn-disabled" : " bg-gradient-to-r  from-red-400 to-yellow-500 "
+              }`}
+              value={taskLoading ? "Updating..." : "Update Task"}
+              disabled={taskLoading}
+            />
+          </div>
+        </form>
+      </div>
+      
     );
 };
 

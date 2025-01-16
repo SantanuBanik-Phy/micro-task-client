@@ -77,119 +77,135 @@ const BuyerAddTask = () => {
     };
 
     return (
-        <div className="container mx-auto py-8">
-            <Helmet>
-                <title>Add Task - Micro Task Platform</title>
-            </Helmet>
-            <Toaster />
-            <h2 className="text-2xl font-bold mb-4">Add New Task</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {/* Task title */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Task Title</span>
-                    </label>
-                    <input
-                        type="text"
-                        {...register("title", { required: "Task title is required" })}
-                        className="input input-bordered w-full"
-                    />
-                    {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-                </div>
-
-                {/* Task details */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Task Details</span>
-                    </label>
-                    <textarea
-                        {...register("detail", { required: "Task details are required" })}
-                        className="textarea textarea-bordered w-full"
-                    />
-                    {errors.detail && <p className="text-red-500">{errors.detail.message}</p>}
-                </div>
-
-                {/* Required workers */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Required Workers</span>
-                    </label>
-                    <input
-                        type="number"
-                        {...register("requiredWorkers", { required: "Required workers is required", min: 1 })}
-                        className="input input-bordered w-full"
-                    />
-                    {errors.requiredWorkers && <p className="text-red-500">{errors.requiredWorkers.message}</p>}
-                </div>
-
-                {/* Payable amount */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Payable Amount (per worker)</span>
-                    </label>
-                    <input
-                        type="number"
-                        {...register("payableAmount", { required: "Payable amount is required", min: 1 })}
-                        className="input input-bordered w-full"
-                    />
-                    {errors.payableAmount && <p className="text-red-500">{errors.payableAmount.message}</p>}
-                </div>
-
-                {/* Completion date */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Completion Date</span>
-                    </label>
-                    <input
-                        type="date"
-                        {...register("completionDate", { required: "Completion date is required" })}
-                        className="input input-bordered w-full"
-                    />
-                    {errors.completionDate && <p className="text-red-500">{errors.completionDate.message}</p>}
-                </div>
-
-                {/* Submission info */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Submission Info</span>
-                    </label>
-                    <textarea
-                        {...register("submissionInfo", { required: "Submission info is required" })}
-                        className="textarea textarea-bordered w-full"
-                    />
-                    {errors.submissionInfo && <p className="text-red-500">{errors.submissionInfo.message}</p>}
-                </div>
-
-                {/* Task image */}
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text">Task Image</span>
-                    </label>
-                    <input
-                        type="file"
-                        {...register("taskImageUrl", {
-                            required: "Task image is required",
-                            onChange: (e) => handleImagePreview(e.target.files[0]),
-                        })}
-                        className="file-input file-input-bordered w-full"
-                    />
-                    {errors.taskImageUrl && <p className="text-red-500">{errors.taskImageUrl.message}</p>}
-                </div>
-
-                {/* Image Preview */}
-                {previewImage && (
-                    <div className="mb-4">
-                        <img
-                            src={previewImage}
-                            alt="Preview"
-                            className="w-32 h-32 object-cover rounded-lg border shadow-sm"
-                        />
-                    </div>
-                )}
-
-                <input type="submit" className="btn btn-primary" value="Add Task" />
-            </form>
-        </div>
+        <div className="container mx-auto  px-4 lg:px-8">
+        <Helmet>
+          <title>Add Task - Micro Task Platform</title>
+        </Helmet>
+        <Toaster />
+        <h2 className="lg:text-5xl text-3xl  font-extrabold text-gray-800 mb-2 text-center">Add New Task</h2>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-white shadow-lg rounded-lg p-6 space-y-6"
+        >
+          {/* Task title */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Task Title</span>
+            </label>
+            <input
+              type="text"
+              {...register("title", { required: "Task title is required" })}
+              className="input input-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Enter task title"
+            />
+            {errors.title && <p className="text-red-500 mt-2">{errors.title.message}</p>}
+          </div>
+      
+          {/* Task details */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Task Details</span>
+            </label>
+            <textarea
+              {...register("detail", { required: "Task details are required" })}
+              className="textarea textarea-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Describe the task in detail"
+            />
+            {errors.detail && <p className="text-red-500 mt-2">{errors.detail.message}</p>}
+          </div>
+      
+          {/* Required workers */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Required Workers</span>
+            </label>
+            <input
+              type="number"
+              {...register("requiredWorkers", { required: "Required workers is required", min: 1 })}
+              className="input input-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Enter the number of workers needed"
+            />
+            {errors.requiredWorkers && <p className="text-red-500 mt-2">{errors.requiredWorkers.message}</p>}
+          </div>
+      
+          {/* Payable amount */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Payable Amount (per worker)</span>
+            </label>
+            <input
+              type="number"
+              {...register("payableAmount", { required: "Payable amount is required", min: 1 })}
+              className="input input-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Enter the payable amount"
+            />
+            {errors.payableAmount && <p className="text-red-500 mt-2">{errors.payableAmount.message}</p>}
+          </div>
+      
+          {/* Completion date */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Completion Date</span>
+            </label>
+            <input
+              type="date"
+              {...register("completionDate", { required: "Completion date is required" })}
+              className="input input-bordered w-full focus:ring focus:ring-blue-500"
+            />
+            {errors.completionDate && <p className="text-red-500 mt-2">{errors.completionDate.message}</p>}
+          </div>
+      
+          {/* Submission info */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Submission Info</span>
+            </label>
+            <textarea
+              {...register("submissionInfo", { required: "Submission info is required" })}
+              className="textarea textarea-bordered w-full focus:ring focus:ring-blue-500"
+              placeholder="Provide submission instructions"
+            />
+            {errors.submissionInfo && <p className="text-red-500 mt-2">{errors.submissionInfo.message}</p>}
+          </div>
+      
+          {/* Task image */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-medium text-gray-700">Task Image</span>
+            </label>
+            <input
+              type="file"
+              {...register("taskImageUrl", {
+                required: "Task image is required",
+                onChange: (e) => handleImagePreview(e.target.files[0]),
+              })}
+              className="file-input file-input-bordered w-full focus:ring focus:ring-blue-500"
+            />
+            {errors.taskImageUrl && <p className="text-red-500 mt-2">{errors.taskImageUrl.message}</p>}
+          </div>
+      
+          {/* Image Preview */}
+          {previewImage && (
+            <div className="mb-4">
+              <img
+                src={previewImage}
+                alt="Preview"
+                className="w-32 h-32 object-cover rounded-lg border shadow-sm"
+              />
+            </div>
+          )}
+      
+          {/* Submit Button */}
+          <div className="text-center">
+            <input
+              type="submit"
+              className="btn bg-gradient-to-r  from-red-400 to-yellow-500  w-full py-2 text-lg font-semibold tracking-wide"
+              value="Add Task"
+            />
+          </div>
+        </form>
+      </div>
+      
     );
 };
 

@@ -68,94 +68,125 @@ const BuyerHome = () => {
     }
 
     return (
-        <div className="p-8">
-            <Helmet>
-                <title>Buyer Home - Micro Task Platform</title>
-            </Helmet>
-            <Toaster></Toaster>
-            <h2 className="text-4xl font-bold text-center text-indigo-700 mb-10">
-                Welcome, {user?.displayName}
-            </h2>
-            <div className="stats shadow w-full">
-                <div className="stat">
-                    <div className="stat-title">Total Tasks</div>
-                    <div className="stat-value">{stats.totalTasks || 0}</div>
-                </div>
-                <div className="stat">
-                    <div className="stat-title">Pending Tasks</div>
-                    <div className="stat-value">{stats.pendingTasks || 0}</div>
-                </div>
-                <div className="stat">
-                    <div className="stat-title">Total Payments</div>
-                    <div className="stat-value">{stats.totalPayments || 0}</div>
-                </div>
+        <div className="p-4 lg:p-8">
+        <Helmet>
+          <title>Buyer Home - Micro Task Platform</title>
+        </Helmet>
+        <Toaster />
+        <h2 className="text-4xl font-extrabold text-indigo-700 mb-10 text-center">
+          Welcome, {user?.displayName}
+        </h2>
+      
+        {/* Stats Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {/* Total Tasks */}
+          <div className="shadow-lg rounded-lg p-4 bg-indigo-50 flex items-center">
+            <div className="stat-icon text-blue-500 mr-4">
+              <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                <path d="M12 7l-5 5h10z" />
+              </svg>
             </div>
-
-            {/* Tasks to Review */}
-            <div className="mt-10">
-                <h3 className="text-2xl font-bold mb-4">Tasks to Review</h3>
-                {tasks.length > 0 ? (
-                    <div className="overflow-x-auto">
-                        <table className="table table-zebra w-full">
-                            <thead>
-                                <tr>
-                                    <th>Worker Name</th>
-                                    <th>Task Title</th>
-                                    <th>Payable Amount</th>
-                                    <th>Submission Details</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tasks.map((task) => (
-                                    <tr key={task._id}>
-                                        <td>{task.workerName}</td>
-                                        <td>{task.taskTitle}</td>
-                                        <td>{task.payableAmount}</td>
-                                        <td>{task.submissionDetails}</td>
-                                        <td>
-                                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                                                <button
-                                                    onClick={() =>
-                                                        handleApprove(
-                                                            task._id,
-                                                            task.workerEmail,
-                                                            task.payableAmount
-                                                        )
-                                                    }
-                                                    className="bg-green-500 text-white py-2 px-4 rounded mb-2 sm:mb-0 sm:mr-2 hover:bg-green-600 transition"
-                                                >
-                                                    Approve
-                                                </button>
-                                                <button
-                                                    onClick={() => handleReject(task)}
-                                                    className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition"
-                                                >
-                                                    Reject
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                ) : (
-                    <h2 className="text-2xl text-center font-semibold">
-                        No tasks to review
-                    </h2>
-                )}
+            <div>
+              <div className="stat-title text-gray-500">Total Tasks</div>
+              <div className="stat-value text-xl text-indigo-600">{stats.totalTasks || 0}</div>
             </div>
-
-            {modalInfo && (
-                <ConfirmationModal
-                    title="Confirm Rejection"
-                    message={`Are you sure you want to reject ${modalInfo.workerName}'s submission for ${modalInfo.taskTitle}?`}
-                    closeModal={() => setModalInfo(null)}
-                    handleConfirmation={handleConfirmReject}
-                />
-            )}
+          </div>
+      
+          {/* Pending Tasks */}
+          <div className="shadow-lg rounded-lg p-4 bg-yellow-50 flex items-center">
+            <div className="stat-icon text-yellow-500 mr-4">
+              <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 4h16v2H4zM4 9h16v2H4zM4 14h16v2H4zM4 19h16v2H4z" />
+              </svg>
+            </div>
+            <div>
+              <div className="stat-title text-gray-500">Pending Tasks</div>
+              <div className="stat-value text-xl text-yellow-600">{stats.pendingTasks || 0}</div>
+            </div>
+          </div>
+      
+          {/* Total Payments */}
+          <div className="shadow-lg rounded-lg p-4 bg-green-50 flex items-center">
+            <div className="stat-icon text-green-500 mr-4">
+              <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L1.8 21h20.4L12 2zm0 3.3L19.3 19H4.7L12 5.3z" />
+                <path d="M11 16h2v2h-2zm0-8h2v6h-2z" />
+              </svg>
+            </div>
+            <div>
+              <div className="stat-title text-gray-500">Total Payments</div>
+              <div className="stat-value text-xl text-green-600">${stats.totalPayments || 0}</div>
+            </div>
+          </div>
         </div>
+      
+        {/* Tasks to Review */}
+        <div className="mt-10">
+          <h3 className="text-2xl font-bold text-gray-700 mb-6">Tasks to Review</h3>
+          {tasks.length > 0 ? (
+            <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+              <table className="table-auto w-full border border-gray-200 rounded-lg min-w-[700px]">
+                <thead className="bg-indigo-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Worker Name</th>
+                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Task Title</th>
+                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Payable Amount</th>
+                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Submission Details</th>
+                    <th className="px-4 py-3 text-center text-sm font-bold text-gray-600">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tasks.map((task) => (
+                    <tr key={task._id} className="hover:bg-gray-50 border-t">
+                      <td className="px-4 py-3 text-sm">{task.workerName}</td>
+                      <td className="px-4 py-3 text-sm">{task.taskTitle}</td>
+                      <td className="px-4 py-3 text-sm">${task.payableAmount}</td>
+                      <td className="px-4 py-3 text-sm">{task.submissionDetails}</td>
+                      <td className="px-4 py-3 text-center">
+                        <div className="flex justify-center gap-2">
+                          <button
+                            onClick={() =>
+                              handleApprove(task._id, task.workerEmail, task.payableAmount)
+                            }
+                            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={() => handleReject(task)}
+                            className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <h2 className="text-xl font-semibold text-gray-500 text-center mt-6">
+              No tasks to review
+            </h2>
+          )}
+        </div>
+      
+        {modalInfo && (
+          <ConfirmationModal
+            title="Confirm Rejection"
+            message={`Are you sure you want to reject ${modalInfo.workerName}'s submission for ${modalInfo.taskTitle}?`}
+            closeModal={() => setModalInfo(null)}
+            handleConfirmation={handleConfirmReject}
+          />
+        )}
+      </div>
+      
+      
+
+
+      
     );
 };
 
