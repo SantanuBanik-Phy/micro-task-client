@@ -26,7 +26,6 @@ const NotificationDropdown = () => {
         }
     }, [user]);
 
-    // Close the dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -54,12 +53,12 @@ const NotificationDropdown = () => {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={handleDropdownToggle}
-                className="btn btn-ghost btn-circle"
+                className="relative p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full text-white hover:shadow-md transition duration-300"
             >
                 <div className="indicator">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
+                        className="h-6 w-6"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -72,7 +71,7 @@ const NotificationDropdown = () => {
                         />
                     </svg>
                     {notifications.length > 0 && (
-                        <span className="badge badge-xs badge-error indicator-item">
+                        <span className="absolute -top-2  right-0 left-3 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full shadow-lg">
                             {notifications.length}
                         </span>
                     )}
@@ -81,27 +80,44 @@ const NotificationDropdown = () => {
 
             {isOpen && (
                 <div
-                    className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50"
+                    className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-lg z-50"
                 >
                     <div className="p-4">
-                        <span className="font-bold text-lg">
+                        <h3 className="font-bold text-lg text-gray-700 mb-2">
                             Notifications
-                        </span>
+                        </h3>
                         {notifications.length === 0 ? (
                             <p className="text-gray-500">No new notifications</p>
                         ) : (
-                            <ul className="py-3">
+                            <ul className="divide-y divide-gray-200">
                                 {notifications.map((notification) => (
                                     <li
                                         key={notification._id}
-                                        className="py-2"
+                                        className="py-2 px-3 hover:bg-gray-100 rounded-lg transition duration-200"
                                         onClick={() => handleNotificationClick(notification._id)}
                                     >
                                         <Link
                                             to={notification.actionRoute}
-                                            className="text-blue-600 hover:underline"
+                                            className="flex items-center space-x-3"
                                         >
-                                            {notification.message}
+                                            <div className="flex-shrink-0 bg-blue-500 text-white rounded-full p-2">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-5 w-5"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path d="M9.293 14.707a1 1 0 001.414 0l3.536-3.536a1 1 0 00-1.414-1.414L10 12.586l-1.829-1.829a1 1 0 00-1.414 1.414l2.536 2.536z" />
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-medium text-gray-800">
+                                                    {notification.message}
+                                                </p>
+                                                <p className="text-xs text-gray-500">
+                                                    {new Date(notification.time).toLocaleString()}
+                                                </p>
+                                            </div>
                                         </Link>
                                     </li>
                                 ))}

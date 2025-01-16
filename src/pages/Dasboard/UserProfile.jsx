@@ -47,8 +47,9 @@ const UserProfile = () => {
             <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-3xl font-bold text-center text-black mb-6">My Profile</h2>
                 <div className="flex justify-center mb-6">
-                    <img
-                        src={profileData?.photoURL || 'https://via.placeholder.com/150'}
+                    <img 
+                        referrerPolicy="no-referrer"
+                        src={user?.photoURL || 'https://via.placeholder.com/150'}
                         alt="User Avatar"
                         className="w-24 h-24 rounded-full border shadow"
                     />

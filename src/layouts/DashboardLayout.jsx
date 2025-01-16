@@ -10,6 +10,7 @@ import { AuthContext } from '../provider/AuthProvider';
 import useAdmin from '../hooks/useAdmin';
 import axios from 'axios';
 import NotificationDropdown from '../components/NotificationDropdown';
+import logo from '../assets/mc3.png'
 
 const DashboardLayout = () => {
     const { user,logOut } = useContext(AuthContext);
@@ -57,68 +58,68 @@ const DashboardLayout = () => {
             <Helmet>
                 <title>Dashboard - Micro Task Platform</title>
             </Helmet>
-           {/* Dashboard Header */}
-           <div
-      className="navbar  bg-cover bg-no-repeat bg-center text-white"
-      style={{ backgroundImage: "url('https://i.ibb.co.com/hCMPLvh/3386851.jpg')" }}
-    >
-    
-      
-      <div className="relative  z-10 w-full max-w-screen-xl mx-auto flex justify-between items-center px-2 py-4 lg:py-3">
-        {/* Logo */}
-        <div className="navbar-start flex items-center">
-          <NavLink to="/" className="btn btn-ghost normal-case text-xl flex items-center">
-            <img src="logo.png" alt="Logo" className="w-8 h-8 mr-2" />
-          </NavLink>
-        </div>
-
-        {/* User Info and Notifications */}
-        <div className="navbar-end flex items-center space-x-3">
-          {/* Available Coins */}
-          <span className="text-sm md:text-base">
-            Available Coins: {userData?.coins || 0}
-          </span>
-
-          {/* User Dropdown */}
-          <div className="relative" ref={dropdownRef}>
             <div
-              className="avatar cursor-pointer"
-              onClick={handleDropdownToggle}
-            >
-              <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src={user?.photoURL || "/default-avatar.png"} alt="User" />
-              </div>
-            </div>
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
-                <NavLink
-                  to="/profile"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                  onClick={() => setDropdownOpen(false)}
-                >
-                  Profile
-                </NavLink>
-                <button
-                  className="block w-full text-left px-4 text-red-500 py-2 hover:bg-gray-100"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
+  className="navbar bg-cover bg-no-repeat bg-center text-white"
+  style={{ backgroundImage: "url('https://i.ibb.co.com/hCMPLvh/3386851.jpg')" }}
+>
+  <div className="relative z-10 w-full max-w-screen-xl mx-auto flex flex-wrap justify-between items-center py-4 lg:py-3 gap-y-4">
+    {/* Logo */}
+    <div className="flex items-center w-full sm:w-auto justify-center sm:justify-start">
+      <NavLink to="/" className="btn btn-ghost normal-case text-xl flex items-center">
+        <img src={logo} alt="Logo" className="w-44 h-10 object-cover" />
+      </NavLink>
+    </div>
 
-          {/* User Name and Role */}
-          <div className="text-sm md:text-base flex flex-col items-end">
-            <span className="font-semibold">{user?.displayName || "Guest"}</span>
-            <span className="text-gray-300">{userData?.role || "User"}</span>
-          </div>
+    {/* User Info and Notifications */}
+    <div className="flex flex-wrap items-center w-full sm:w-auto justify-center sm:justify-end gap-4">
+      {/* Available Coins */}
+      <span className="text-sm md:text-base order-2 sm:order-none">
+        Available Coins: {userData?.coins || 0}
+      </span>
 
-          {/* Notification Dropdown */}
-          <NotificationDropdown />
+      {/* User Dropdown */}
+      <div className="relative order-1 sm:order-none" ref={dropdownRef}>
+        <div
+          className="avatar cursor-pointer"
+          onClick={handleDropdownToggle}
+        >
+          <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src={user?.photoURL || "/default-avatar.png"} alt="User" />
+          </div>
         </div>
+        {dropdownOpen && (
+          <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
+            <NavLink
+              to="/profile"
+              className="block px-4 py-2 hover:bg-gray-100"
+              onClick={() => setDropdownOpen(false)}
+            >
+              Profile
+            </NavLink>
+            <button
+              className="block w-full text-left px-4 text-red-500 py-2 hover:bg-gray-100"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* User Name and Role */}
+      <div className="text-sm md:text-base flex flex-col items-center sm:items-end">
+        <span className="font-semibold">{user?.displayName || "Guest"}</span>
+        <span className="text-gray-300">{userData?.role || "User"}</span>
+      </div>
+
+      {/* Notification Dropdown */}
+      <div className="order-3 sm:order-none">
+        <NotificationDropdown />
       </div>
     </div>
+  </div>
+</div>
+
 
             {/* Dashboard Content */}
             <div className="flex">
@@ -301,7 +302,7 @@ const DashboardLayout = () => {
       {/* Navbar Header */}
       <h1 className="text-xl font-bold  px-4 py-2"> <span className="text-blue-900">{userData?.role || "User"}</span>  Dashboard</h1>
     </div>
-    <div className="md:p-16 p-4  bg-[url('https://i.ibb.co.com/4SW6pgV/19366.jpg')] bg-cover bg-center bg-no-repeat">
+    <div className="md:p-12 p-4  bg-[url('https://i.ibb.co.com/4SW6pgV/19366.jpg')] bg-cover bg-center bg-no-repeat min-h-[calc(100vh-100px)]">
       <Outlet context={{ refetchUserCoins: refetch }} />
     </div>
   </div>

@@ -9,7 +9,7 @@ import Dashboard from "../pages/Dasboard/Dasboard";
 import BuyerHome from "../pages/Buyer/BuyerHome";
 import BuyerAddTask from "../pages/Buyer/BuyerAddTask";
 import BuyerMyTasks from "../pages/Buyer/BuyerMyTasks";
-import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
+// import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
 import BuyerPurchaseCoin from "../pages/Buyer/BuyerPurchaseCoin";
 import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
 import WorkerHome from "../pages/Worker/WorkerHome";
@@ -24,6 +24,10 @@ import TaskDetails from "../pages/Shared/TaskDetails";
 import BuyerEditTask from "../pages/Shared/BuyerEditTask";
 import Checkout from "../pages/Buyer/Checkout";
 import UserProfile from "../pages/Dasboard/UserProfile";
+import PrivateRoute from "./PrivateRoute";
+import BuyerRoute from "./BuyerRoute";
+import WorkerRoute from "./WorkerRoute";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -55,7 +59,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/profile',
-        element: <UserProfile></UserProfile>
+        element: <PrivateRoute> <UserProfile></UserProfile></PrivateRoute>
       },
       
       
@@ -63,7 +67,7 @@ const router = createBrowserRouter([
 },
 {
   path: '/dashboard',
-  element: <DashboardLayout></DashboardLayout>,
+  element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute> ,
 
  
   children: [
@@ -74,58 +78,58 @@ const router = createBrowserRouter([
      
     {
         path: 'buyer-home',
-        element: <BuyerHome></BuyerHome>
+        element: <BuyerRoute><BuyerHome></BuyerHome></BuyerRoute>
     },
     {
       path: 'add-task',
-      element: <BuyerAddTask></BuyerAddTask>
+      element: <BuyerRoute><BuyerAddTask></BuyerAddTask></BuyerRoute>
   },
   {
     path: 'my-tasks',
-    element: <BuyerMyTasks></BuyerMyTasks>
+    element: <BuyerRoute> <BuyerMyTasks></BuyerMyTasks></BuyerRoute>
 },
-{
-path: 'submission-list/:id',
-element: <BuyerSubmissionList></BuyerSubmissionList>,
-loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${params.id}`)
-},
+// {
+// path: 'submission-list/:id',
+// element: <BuyerSubmissionList></BuyerSubmissionList>,
+// loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${params.id}`)
+// },
 
 {
   path: 'purchase-coin',
-  element: <BuyerPurchaseCoin></BuyerPurchaseCoin>
+  element:<BuyerRoute> <BuyerPurchaseCoin></BuyerPurchaseCoin></BuyerRoute>
 },
 {
   path: 'payment-history',
-  element: <BuyerPaymentHistory></BuyerPaymentHistory>
+  element: <BuyerRoute><BuyerPaymentHistory></BuyerPaymentHistory></BuyerRoute>
 },
 {
   path: 'worker-home',
-  element: <WorkerHome></WorkerHome>
+  element:<WorkerRoute> <WorkerHome></WorkerHome></WorkerRoute>
 },
 {
   path: 'worker-task-list',
-  element: <WorkerTaskList></WorkerTaskList>
+  element: <WorkerRoute><WorkerTaskList></WorkerTaskList></WorkerRoute>
 },
  {
   path: 'my-submissions',
-  element: <WorkerMySubmissions></WorkerMySubmissions>
+  element: <WorkerRoute><WorkerMySubmissions></WorkerMySubmissions></WorkerRoute>
 },
 {
   path: 'withdrawals',
-  element: <WorkerWithdrawals></WorkerWithdrawals>
+  element: <WorkerRoute><WorkerWithdrawals></WorkerWithdrawals></WorkerRoute>
 },
 
 {
   path: 'admin-home',
-  element: <AdminHome></AdminHome>
+  element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
 },
 {
   path: 'manage-users',
-  element:<ManageUsers></ManageUsers>
+  element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
 },
 {
   path: 'manage-tasks',
-  element: <ManageTasks></ManageTasks>
+  element: <AdminRoute><ManageTasks></ManageTasks></AdminRoute>
 },
 // {
 //   path: 'manage-submissions',
@@ -139,7 +143,7 @@ loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${para
 },
 {
   path: 'edit-task/:id',
-  element: <BuyerEditTask></BuyerEditTask>,
+  element: <BuyerRoute><BuyerEditTask></BuyerEditTask></BuyerRoute>,
   loader: ({ params }) => fetch(`http://localhost:3000/api/tasks/${params.id}`)
 },
 {

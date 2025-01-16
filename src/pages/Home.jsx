@@ -11,6 +11,7 @@ import ReactCountUp from "../components/ReactCountUp";
 import HowItWorks from "../components/HowItWorks";
 
 import BenefitsAndAdvantages from "../components/BenefitsAdvantages";
+import EmbraceTheFutureOfWork from "../components/EmbraceTheFutureOfWork";
 
 const Home = () => {
     const [workers, setWorkers] = useState([]);
@@ -39,15 +40,18 @@ const Home = () => {
             <section >
             <HeroSection />
             </section>
-            <section className="w-11/12 mx-auto py-8"> <BestWorkers workers={workers} loading={loading} /></section>
+            <section className=" p-10 bg-[url('https://i.ibb.co.com/qWz60KQ/freepik-expand-92212.png')] bg-cover bg-center bg-no-repeat "> <BestWorkers workers={workers} loading={loading} /></section>
             
-            <section className="w-11/12 mx-auto py-8" > <TestimonialSection /></section>
+            <section className="w-11/12 mx-auto py-6" > <TestimonialSection /></section>
            
-            <section className="w-11/12 mx-auto py-8" > <WhyChooseUs></WhyChooseUs></section>
+            <section className="w-11/12 mx-auto py-6" > <WhyChooseUs></WhyChooseUs></section>
          
-            <section className="w-11/12 mx-auto py-8" > <ReactCountUp></ReactCountUp> </section>
-            <section className="w-11/12 mx-auto py-8" > <HowItWorks></HowItWorks> </section>
-            <section className="w-11/12 mx-auto py-8" > <BenefitsAndAdvantages></BenefitsAndAdvantages> </section>
+            <section className=" py-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-gray-900 dark:text-white bg-[url('https://i.ibb.co.com/NtLFmF9/5655049.jpg')] bg-cover bg-center bg-no-repeat" > <ReactCountUp></ReactCountUp> </section>
+            <section className="w-11/12 mx-auto py-6" > <EmbraceTheFutureOfWork></EmbraceTheFutureOfWork></section>
+            <section className="bg-gradient-to-l from-blue-950 to-blue-500 py-6" > <BenefitsAndAdvantages></BenefitsAndAdvantages> </section>
+            <section className=" py-6" > <HowItWorks></HowItWorks> </section>
+           
+          
              
 
      

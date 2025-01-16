@@ -51,17 +51,50 @@ const AuthProvider = ({ children }) => {
     
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-          if (currentUser) {
-            const coins = await fetchUserCoins(currentUser.email);
-            setUser({ ...currentUser, coins });
+          setLoading(true); 
+      
+          if (currentUser?.email) {
+            try {
+              // Generate JWT token
+              const user = { email: currentUser.email };
+              await axios.post(
+                'http://localhost:3000/jwt',
+                user,
+                { withCredentials: true }
+              );
+              console.log("JWT generated successfully");
+      
+              // Fetch user coins
+              const coins = await fetchUserCoins(currentUser.email);
+              setUser({ ...currentUser, coins }); 
+            } catch (error) {
+              console.error("Error generating JWT or fetching coins:", error);
+              setUser(null); 
+            }
           } else {
-            setUser(null);
+            try {
+              // Logout user on server
+              await axios.post(
+                'http://localhost:3000/logout',
+                {},
+                { withCredentials: true }
+              );
+              console.log("User logged out successfully");
+            } catch (error) {
+              console.error("Error during logout:", error);
+            } finally {
+              setUser(null); 
+            }
           }
-          setLoading(false);
+      
+          setLoading(false); 
         });
-    
-        return () => unsubscribe();
+      
+        return () => {
+          unsubscribe(); 
+        };
       }, []);
+      
     
     const authInfo = {
         user,

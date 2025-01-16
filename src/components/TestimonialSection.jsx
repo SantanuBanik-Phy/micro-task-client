@@ -1,39 +1,38 @@
-// src/components/TestimonialSection.jsx
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import { Pagination, Autoplay } from 'swiper/modules';
-import qoute1 from "../assets/openq.png"
-import qoute12 from "../assets/closeq1.png"
+import qoute1 from "../assets/openq.png";
+import qoute12 from "../assets/closeq1.png";
 
 const testimonials = [
     {
         id: 1,
-        name: 'John Doe',
+        name: 'Santanu',
         comment: 'This platform is amazing! I have been able to earn a significant amount of money by completing simple tasks.',
-        image: 'https://img.freepik.com/free-photo/portrait-confident-young-man_23-2148484565.jpg',
+        image: 'https://i.ibb.co/Qpgk5zP/handsome-young-business-man-holding-document-folder-220507-700.jpg',
     },
     {
         id: 2,
-        name: 'Jane Smith',
+        name: 'Purba',
         comment: 'I love how easy it is to use this platform. The tasks are straightforward, and the payouts are fair.',
-        image: 'https://img.freepik.com/free-photo/successful-businesswoman-looking-camera-outside-office_23-2148438761.jpg',
+        image: 'https://i.ibb.co/1Zzf8dv/360-F-617571490-Lagtv4fr-Ko0-T4zo-El-Zsld-Duzzn-AATG10.jpg',
     },
     {
         id: 3,
-        name: 'Peter Jones',
+        name: 'Sarah',
         comment: 'I highly recommend this platform to anyone looking to make some extra money in their spare time.',
-        image: 'https://img.freepik.com/free-photo/successful-man_23-2148484569.jpg',
+        image: 'https://i.ibb.co/wRz21Hn/istockphoto-1163294201-612x612.jpg',
     },
 ];
 
 const TestimonialSection = () => {
     return (
-        <div className="my-20 px-4 md:px-16 lg:px-32 bg-gray-50 py-10 relative">
-            <h2 className="text-4xl font-bold text-center mb-12 text-gradient ">
-                Testimonials 
+        <div className="my-20 px-6 md:px-16 lg:px-32 bg-gradient-to-l from-blue-950 to-blue-500 py-16 rounded-xl shadow-lg relative">
+            <h2 className="text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-300 text-transparent bg-clip-text">
+                Testimonials
             </h2>
             <Swiper
                 slidesPerView={1}
@@ -45,7 +44,7 @@ const TestimonialSection = () => {
             >
                 {testimonials.map((testimonial) => (
                     <SwiperSlide key={testimonial.id}>
-                        <div className="flex flex-col lg:flex-row items-center justify-between bg-white shadow-2xl rounded-xl overflow-hidden">
+                        <div className="flex flex-col lg:flex-row items-center justify-between bg-white shadow-2xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
                             <div className="relative lg:w-1/2 h-64 md:h-72 lg:h-96">
                                 <img
                                     src={testimonial.image}
@@ -57,7 +56,7 @@ const TestimonialSection = () => {
                                 <img
                                     src={qoute1}
                                     alt="Open Quote"
-                                    className="absolute top-0 left-0 w-12 h-12 opacity-30"
+                                    className="absolute -top-8 left-4 w-16 h-16 opacity-20"
                                 />
                                 <p className="text-lg text-gray-600 leading-relaxed mb-6 relative">
                                     {testimonial.comment}
@@ -65,11 +64,12 @@ const TestimonialSection = () => {
                                 <img
                                     src={qoute12}
                                     alt="Close Quote"
-                                    className="absolute bottom-14 right-0 w-12 h-12 opacity-30"
+                                    className="absolute bottom-4 right-4 w-16 h-16 opacity-20"
                                 />
-                                <h3 className="text-3xl font-bold text-gray-800 mt-6 relative">
+                                <h3 className="text-3xl font-extrabold text-gray-800 mt-6 relative">
                                     {testimonial.name}
                                 </h3>
+                                <div className="w-16 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full mt-3"></div>
                             </div>
                         </div>
                     </SwiperSlide>
