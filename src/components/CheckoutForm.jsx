@@ -10,7 +10,6 @@ const CheckoutForm = ({ price, coins }) => {
     const elements = useElements();
     const { user } = useContext(AuthContext);
 
-    // Access the refetch function from DashboardLayout
     const { refetchUserCoins } = useOutletContext();
 
     const [processing, setProcessing] = useState(false);
@@ -68,7 +67,6 @@ const CheckoutForm = ({ price, coins }) => {
             await axios.post('http://localhost:3000/api/payments', paymentData);
             toast.success(`You successfully purchased ${coins} coins!`);
 
-            // Refetch user coins after successful payment
             refetchUserCoins();
         }
 
@@ -76,32 +74,47 @@ const CheckoutForm = ({ price, coins }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Toaster></Toaster>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mx-auto">
+            <Toaster />
+            <h2 className="text-2xl font-bold text-center text-indigo-700 mb-4">Complete Your Payment</h2>
+            <p className="text-center text-gray-600 mb-6">
+                You are purchasing <span className="font-semibold">{coins} Coins</span> for 
+                <span className="font-semibold"> ${price}</span>.
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="border border-gray-300 rounded-lg p-3">
+                    <CardElement
+                        options={{
+                            style: {
+                                base: {
+                                    fontSize: '16px',
+                                    color: '#424770',
+                                    fontFamily: 'Arial, sans-serif',
+                                    '::placeholder': {
+                                        color: '#aab7c4',
+                                    },
+                                },
+                                invalid: {
+                                    color: '#9e2146',
+                                },
                             },
-                        },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <button
-                type="submit"
-                disabled={!stripe || processing}
-                className="btn btn-primary mt-4"
-            >
-                {processing ? 'Processing...' : `Pay $${price}`}
-            </button>
-        </form>
+                        }}
+                    />
+                </div>
+                <button
+                    type="submit"
+                    disabled={!stripe || processing}
+                    className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition disabled:opacity-50"
+                >
+                    {processing ? 'Processing...' : `Pay $${price}`}
+                </button>
+            </form>
+            {transactionId && (
+                <p className="text-green-600 text-center mt-4">
+                    Payment Successful! Transaction ID: <span className="font-semibold">{transactionId}</span>
+                </p>
+            )}
+        </div>
     );
 };
 

@@ -4,11 +4,9 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
 
-
 const BuyerPaymentHistory = () => {
     const { user } = useContext(AuthContext);
 
-    // Fetch payment history for the logged-in user
     const { data: payments = [], isLoading } = useQuery({
         queryKey: ['payment-history', user?.email],
         queryFn: async () => {
@@ -31,38 +29,38 @@ const BuyerPaymentHistory = () => {
     }
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto  px-4 ">
             <Helmet>
                 <title>Payment History - Micro Task Platform</title>
             </Helmet>
-            <h2 className="text-4xl font-bold text-center text-indigo-700 mb-10">Payment History</h2>
+            <h2 className="text-4xl font-bold text-center text-black mb-10">Payment History</h2>
             {payments.length > 0 ? (
-                <div className="overflow-x-auto">
-                    <table className="table table-zebra w-full">
-                        <thead>
+                <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+                    <table className="table-auto w-full border border-gray-200 rounded-lg min-w-[700px]">
+                        <thead className="bg-indigo-50">
                             <tr>
-                                <th>#</th>
-                                <th>Transaction ID</th>
-                                <th>Coins Purchased</th>
-                                <th>Amount Paid ($)</th>
-                                <th>Date</th>
+                                <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">#</th>
+                                <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Transaction ID</th>
+                                <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Coins Purchased</th>
+                                <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Amount Paid ($)</th>
+                                <th className="px-4 py-3 text-left text-sm font-bold text-gray-600">Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             {payments.map((payment, index) => (
-                                <tr key={payment.transactionId}>
-                                    <td>{index + 1}</td>
-                                    <td>{payment.transactionId}</td>
-                                    <td>{payment.coins}</td>
-                                    <td>{payment.price.toFixed(2)}</td>
-                                    <td>{new Date(payment.date).toLocaleDateString()}</td>
+                                <tr key={payment.transactionId} className="hover:bg-gray-50 border-t">
+                                    <td className="px-4 py-3 text-sm">{index + 1}</td>
+                                    <td className="px-4 py-3 text-sm text-indigo-600 font-medium">{payment.transactionId}</td>
+                                    <td className="px-4 py-3 text-sm">{payment.coins}</td>
+                                    <td className="px-4 py-3 text-sm">${payment.price.toFixed(2)}</td>
+                                    <td className="px-4 py-3 text-sm">{new Date(payment.date).toLocaleDateString()}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             ) : (
-                <h2 className="text-2xl text-center font-semibold">No payment history found</h2>
+                <h2 className="text-2xl text-center font-semibold text-gray-500">No payment history found</h2>
             )}
         </div>
     );

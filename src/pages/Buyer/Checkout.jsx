@@ -20,14 +20,12 @@ const Checkout = () => {
     }
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto pb-6">
             <Helmet>
                 <title>Checkout - Micro Task Platform</title>
             </Helmet>
-            <h2 className="text-3xl font-bold text-center mb-6">Checkout</h2>
-            <p className="text-center text-gray-600 mb-8">
-                You are purchasing <strong>{coins}</strong> coins for <strong>${price}</strong>.
-            </p>
+            <h2 className="lg:text-5xl text-3xl font-bold text-center mb-6">Checkout</h2>
+           
             <div className="max-w-lg mx-auto">
                 <Elements stripe={stripePromise}>
                     <CheckoutForm price={price} coins={coins} />
