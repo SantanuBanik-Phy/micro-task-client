@@ -5,16 +5,21 @@ import { Helmet } from 'react-helmet';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { AuthContext } from '../../provider/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
-import { FaTasks, FaRegClock, FaMoneyBillWave } from 'react-icons/fa';
+import { FaTasks, FaRegClock, FaMoneyBillWave, FaEye, FaCheck, FaTimes } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading from '../../components/Loading';
+import Loading2 from '../../components/Loading2';
 
 const BuyerHome = () => {
     const { user } = useContext(AuthContext);
     const [modalInfo, setModalInfo] = useState(null);
+    const [submissionDetailsModal, setSubmissionDetailsModal] = useState(null);
+    const axiosSecure = useAxiosSecure();
 
     const { data: stats = {}, isLoading: statsLoading, refetch: refetchStats } = useQuery({
         queryKey: ['buyer-stats', user?.email],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/users/stats?email=${user?.email}`);
+            const res = await axiosSecure.get(`/users/stats?email=${user?.email}`);
             return res.data;
         },
     });
@@ -22,7 +27,7 @@ const BuyerHome = () => {
     const { data: tasks = [], isLoading: tasksLoading, refetch: refetchTasks } = useQuery({
         queryKey: ['tasks-review', user?.email],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/tasks/review`, {
+            const res = await axiosSecure.get(`/tasks/review`, {
                 params: { email: user?.email },
             });
             return res.data;
@@ -31,7 +36,7 @@ const BuyerHome = () => {
 
     const handleApprove = async (submissionId, workerEmail, payableAmount) => {
         try {
-            await axios.patch(`http://localhost:3000/api/submissions/${submissionId}/approve`);
+            await axiosSecure.patch(`/api/submissions/${submissionId}/approve`);
             toast.success('Task approved successfully!');
             await Promise.all([refetchStats(), refetchTasks()]);
         } catch (error) {
@@ -46,7 +51,7 @@ const BuyerHome = () => {
 
     const handleConfirmReject = async () => {
         try {
-            await axios.patch(`http://localhost:3000/api/submissions/${modalInfo._id}/reject`);
+            await axiosSecure.patch(`/api/submissions/${modalInfo._id}/reject`);
             toast.success('Task rejected successfully!');
             await Promise.all([refetchStats(), refetchTasks()]);
             setModalInfo(null);
@@ -56,8 +61,12 @@ const BuyerHome = () => {
         }
     };
 
+    const handleViewSubmission = (submissionDetails) => {
+        setSubmissionDetailsModal(submissionDetails);
+    };
+
     if (statsLoading || tasksLoading) {
-        return <div>Loading...</div>;
+        return <Loading2></Loading2>;
     }
 
     return (
@@ -118,22 +127,29 @@ const BuyerHome = () => {
                                         <td className="px-4 py-3 text-sm">{task.workerName}</td>
                                         <td className="px-4 py-3 text-sm">{task.taskTitle}</td>
                                         <td className="px-4 py-3 text-sm">${task.payableAmount}</td>
-                                        <td className="px-4 py-3 text-sm">{task.submissionDetails}</td>
+                                        <td className="px-4 py-3 text-center">
+                                            <button
+                                                onClick={() => handleViewSubmission(task.submissionDetails)}
+                                                className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition"
+                                            >
+                                                <FaEye /> View
+                                            </button>
+                                        </td>
                                         <td className="px-4 py-3 text-center">
                                             <div className="flex justify-center gap-2">
                                                 <button
                                                     onClick={() =>
                                                         handleApprove(task._id, task.workerEmail, task.payableAmount)
                                                     }
-                                                    className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+                                                    className="bg-green-500 text-white py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-green-600 transition"
                                                 >
-                                                    Approve
+                                                    <FaCheck /> Approve
                                                 </button>
                                                 <button
                                                     onClick={() => handleReject(task)}
-                                                    className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+                                                    className="bg-red-500 text-white py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-red-600 transition"
                                                 >
-                                                    Reject
+                                                    <FaTimes /> Reject
                                                 </button>
                                             </div>
                                         </td>
@@ -156,6 +172,23 @@ const BuyerHome = () => {
                     closeModal={() => setModalInfo(null)}
                     handleConfirmation={handleConfirmReject}
                 />
+            )}
+
+            {submissionDetailsModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+                        <h3 className="text-xl font-bold text-gray-700 mb-4">Submission Details</h3>
+                        <p className="text-gray-600 mb-6">{submissionDetailsModal}</p>
+                        <div className="text-right">
+                            <button
+                                onClick={() => setSubmissionDetailsModal(null)}
+                                className="bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

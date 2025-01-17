@@ -5,6 +5,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
 import axios from 'axios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const BuyerAddTask = () => {
     const { user } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const BuyerAddTask = () => {
     const [previewImage, setPreviewImage] = useState(null); // State for image preview
     const imageHostKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     // Access the refetch function from DashboardLayout
     const { refetchUserCoins } = useOutletContext();
@@ -20,7 +22,7 @@ const BuyerAddTask = () => {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                setPreviewImage(reader.result); // Set preview image URL
+                setPreviewImage(reader.result); 
             };
             reader.readAsDataURL(file);
         }
@@ -52,8 +54,8 @@ const BuyerAddTask = () => {
                         status: 'pending',
                     };
 
-                    axios
-                        .post('http://localhost:3000/api/tasks', task)
+                    axiosSecure
+                        .post('/api/tasks', task)
                         .then(data => {
                             if (data.data.insertedId) {
                                 toast.success('Task added successfully!');

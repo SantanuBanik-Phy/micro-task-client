@@ -4,15 +4,19 @@ import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
 import { FaClipboardList, FaHourglassHalf, FaDollarSign } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading from '../../components/Loading';
+import Loading2 from '../../components/Loading2';
 
 const WorkerHome = () => {
     const { user } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
 
     const { data: stats = {}, isLoading: statsLoading } = useQuery({
         queryKey: ['worker-stats', user?.email],
         queryFn: async () => {
             if (!user?.email) return {};
-            const res = await axios.get(`http://localhost:3000/api/worker/stats`, {
+            const res = await axiosSecure.get(`/api/worker/stats`, {
                 params: { email: user.email },
             });
             return res.data;
@@ -23,7 +27,7 @@ const WorkerHome = () => {
         queryKey: ['approved-submissions', user?.email],
         queryFn: async () => {
             if (!user?.email) return [];
-            const res = await axios.get('http://localhost:3000/api/submissions', {
+            const res = await axiosSecure.get('/api/submissions', {
                 params: { email: user.email, status: 'approved' },
             });
             return res.data;
@@ -31,7 +35,7 @@ const WorkerHome = () => {
     });
 
     if (statsLoading || submissionsLoading) {
-        return <div>Loading...</div>;
+        return <Loading2></Loading2>;
     }
 
     return (

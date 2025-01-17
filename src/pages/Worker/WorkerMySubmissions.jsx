@@ -3,18 +3,21 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const WorkerMySubmissions = () => {
     const { user } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5; // Number of items per page
+    const itemsPerPage = 5; 
+    const axiosSecure = useAxiosSecure();
 
     const { data: submissions = [], isLoading } = useQuery({
         queryKey: ['my-submissions', user?.email],
         queryFn: async () => {
             if (!user?.email) return [];
-            const res = await axios.get(`http://localhost:3000/api/submissions`, {
-                params: { email: user.email }, // Pass the logged-in user's email as a query parameter
+            const res = await axiosSecure.get(`/api/submissions`, {
+                params: { email: user.email }, 
             });
             return res.data;
         },
@@ -22,9 +25,7 @@ const WorkerMySubmissions = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <div className="spinner-border animate-spin inline-block w-10 h-10 border-4 rounded-full text-indigo-500"></div>
-            </div>
+            <Loading2></Loading2>
         );
     }
 

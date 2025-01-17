@@ -1,4 +1,4 @@
-// src/hooks/useAdmin.jsx
+
 import { useEffect, useState } from "react"
 
 const useAdmin = email => {

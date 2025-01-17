@@ -1,4 +1,4 @@
-// src/hooks/useWorker.jsx
+
 import { useEffect, useState } from "react"
 
 const useWorker = email => {

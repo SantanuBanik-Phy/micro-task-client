@@ -6,17 +6,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const TaskDetails = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     const { data: task = {}, isLoading } = useQuery({
         queryKey: ['task', id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/api/tasks/${id}`);
+            const res = await axiosSecure.get(`/api/tasks/${id}`);
             return res.data;
         }
     });
@@ -30,7 +33,7 @@ const TaskDetails = () => {
                 workerName: user?.displayName,
             };
 
-            const response = await axios.post('http://localhost:3000/api/submissions', submissionData);
+            const response = await axiosSecure.post('/api/submissions', submissionData);
             if (response.status === 201) {
                 toast.success('Submission created successfully!');
                 navigate('/dashboard/my-submissions');
@@ -47,9 +50,7 @@ const TaskDetails = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner"></span>
-            </div>
+            <Loading2></Loading2>
         );
     }
 

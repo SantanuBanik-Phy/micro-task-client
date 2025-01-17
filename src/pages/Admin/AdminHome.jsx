@@ -6,18 +6,22 @@ import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
 import { FaUsers, FaDollarSign, FaCoins, FaShoppingCart } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+
+import Loading2 from '../../components/Loading2';
 
 const AdminHome = () => {
     const { user } = useContext(AuthContext);
-    const [processingIds, setProcessingIds] = useState([]); // Track which buttons are being processed
-    const [successIds, setSuccessIds] = useState([]); // Track successful approvals
+    const [processingIds, setProcessingIds] = useState([]); 
+    const [successIds, setSuccessIds] = useState([]);
+    const axiosSecure = useAxiosSecure(); 
 
     // Fetch admin stats
     const { data: stats = {}, isLoading: statsLoading, refetch: refetchStats } = useQuery({
         queryKey: ['admin-stats'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:3000/api/admin/stats', {
-                params: { role: 'admin' }, // Include role parameter
+            const res = await axiosSecure.get('/api/admin/stats', {
+                params: { role: 'admin' }, 
             });
             return res.data;
         },
@@ -27,7 +31,7 @@ const AdminHome = () => {
     const { data: withdrawals = [], isLoading: withdrawalsLoading, refetch: refetchWithdrawals } = useQuery({
         queryKey: ['admin-withdrawals'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:3000/admin/withdrawals', {
+            const res = await axiosSecure.get('/admin/withdrawals', {
                 params: { role: 'admin' }, // Include role parameter
             });
             return res.data;
@@ -37,20 +41,20 @@ const AdminHome = () => {
     // Handle approve withdrawal request
     const handleApproveWithdrawal = async (withdrawalId, workerEmail, withdrawalCoin) => {
         if (processingIds.includes(withdrawalId)) {
-            return; // Prevent duplicate processing
+            return; 
         }
 
         setProcessingIds((prev) => [...prev, withdrawalId]); // Add ID to processing list
 
         try {
-            await axios.patch(
-                `http://localhost:3000/admin/withdrawals/${withdrawalId}/approve`,
-                null, // No body needed
+            await axiosSecure.patch(
+                `/admin/withdrawals/${withdrawalId}/approve`,
+                null, 
                 {
-                    params: { role: 'admin' }, // Include role parameter
+                    params: { role: 'admin' }, 
                 }
             );
-            setSuccessIds((prev) => [...prev, withdrawalId]); // Mark as success
+            setSuccessIds((prev) => [...prev, withdrawalId]); 
             toast.success('Withdrawal request approved!');
             await Promise.all([refetchWithdrawals(), refetchStats()]); // Refetch data for both withdrawals and stats
         } catch (error) {
@@ -62,7 +66,7 @@ const AdminHome = () => {
     };
 
     if (statsLoading || withdrawalsLoading) {
-        return <div>Loading...</div>;
+        return <Loading2></Loading2>;
     }
 
     return (

@@ -3,15 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const BuyerPaymentHistory = () => {
     const { user } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
 
     const { data: payments = [], isLoading } = useQuery({
         queryKey: ['payment-history', user?.email],
         queryFn: async () => {
             if (!user?.email) return [];
-            const res = await axios.get(`http://localhost:3000/api/payments?email=${user.email}`);
+            const res = await axiosSecure.get(`/api/payments?email=${user.email}`);
             return res.data;
         },
     });
@@ -22,9 +25,7 @@ const BuyerPaymentHistory = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner"></span>
-            </div>
+           <Loading2></Loading2>
         );
     }
 

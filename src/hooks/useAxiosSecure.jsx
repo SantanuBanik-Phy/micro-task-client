@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../provider/AuthProvider';
 
-const axiosSecure = axios.create({
+ const axiosSecure = axios.create({
     baseURL: 'http://localhost:3000',
     withCredentials: true,
 })

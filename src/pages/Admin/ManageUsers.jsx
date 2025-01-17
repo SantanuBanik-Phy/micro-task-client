@@ -4,19 +4,22 @@ import React from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { FaTrashAlt } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const ManageUsers = () => {
+  const axiosSecure = useAxiosSecure();
   const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:3000/admin/users?role=admin');
+      const res = await axiosSecure.get('/admin/users?role=admin');
       return res.data;
     },
   });
 
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/users/${userId}`, {
+      await axiosSecure.delete(`/api/users/${userId}`, {
         params: { role: 'admin' },
       });
       toast.success('User deleted successfully!');
@@ -29,8 +32,8 @@ const ManageUsers = () => {
 
   const handleRoleUpdate = async (userId, newRole) => {
     try {
-      await axios.patch(
-        `http://localhost:3000/api/users/${userId}/role`,
+      await axiosSecure.patch(
+        `/api/users/${userId}/role`,
         { role: newRole },
         { params: { role: 'admin' } }
       );
@@ -44,9 +47,7 @@ const ManageUsers = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner"></span>
-      </div>
+      <Loading2></Loading2>
     );
   }
 
@@ -80,6 +81,7 @@ const ManageUsers = () => {
                 >
                   <td className="px-4 py-3">
                     <img
+                       referrerPolicy="no-referrer"
                       className="w-16 h-16 object-cover rounded-full border"
                       src={user?.photoURL || '/default-avatar.png'}
                       alt="User"

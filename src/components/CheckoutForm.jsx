@@ -4,11 +4,13 @@ import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import { AuthContext } from '../provider/AuthProvider';
 import { useOutletContext } from 'react-router-dom';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const CheckoutForm = ({ price, coins }) => {
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
 
     const { refetchUserCoins } = useOutletContext();
 
@@ -64,7 +66,7 @@ const CheckoutForm = ({ price, coins }) => {
                 transactionId: paymentIntent.id,
             };
 
-            await axios.post('http://localhost:3000/api/payments', paymentData);
+            await axiosSecure.post('/api/payments', paymentData);
             toast.success(`You successfully purchased ${coins} coins!`);
 
             refetchUserCoins();

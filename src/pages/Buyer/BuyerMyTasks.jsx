@@ -6,12 +6,15 @@ import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const BuyerMyTasks = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [modalTaskId, setModalTaskId] = useState(null);
+    const axiosSecure = useAxiosSecure();
 
     // Get refetch function from DashboardLayout
     const { refetchUserCoins } = useOutletContext();
@@ -21,7 +24,7 @@ const BuyerMyTasks = () => {
         queryKey: ['buyer-tasks', user?.email],
         queryFn: async () => {
             if (!user?.email) return [];
-            const res = await axios.get(`http://localhost:3000/tasks/buyer?email=${user.email}`);
+            const res = await axiosSecure.get(`/tasks/buyer?email=${user.email}`);
             return res.data;
         },
     });
@@ -32,9 +35,9 @@ const BuyerMyTasks = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/api/tasks/${modalTaskId}`);
+            await axiosSecure.delete(`/api/tasks/${modalTaskId}`);
             toast.success('Task deleted successfully!');
-            setModalTaskId(null); // Close modal
+            setModalTaskId(null); 
 
             // Refetch tasks and buyer coins
             refetchTasks();
@@ -51,9 +54,7 @@ const BuyerMyTasks = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner"></span>
-            </div>
+           <Loading2></Loading2>
         );
     }
 

@@ -3,21 +3,22 @@ import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const WorkerTaskList = () => {
+    const axiosSecure = useAxiosSecure();
     const { data: tasks = [], isLoading } = useQuery({
         queryKey: ['worker-tasks'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:3000/api/worker/tasks');
+            const res = await axiosSecure.get('/api/worker/tasks');
             return res.data;
         },
     });
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner"></span>
-            </div>
+            <Loading2></Loading2>
         );
     }
 

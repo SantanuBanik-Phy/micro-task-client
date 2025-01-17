@@ -5,13 +5,17 @@ import React from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { FaTrashAlt } from 'react-icons/fa';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading from '../../components/Loading';
+import Loading2 from '../../components/Loading2';
 
 const ManageTasks = () => {
+    const axiosSecure = useAxiosSecure();
     const { data: tasks = [], isLoading, refetch } = useQuery({
         queryKey: ['admin-tasks'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:3000/api/admin/tasks', {
-                params: { role: 'admin' }, // Pass the role as a query parameter
+            const res = await axiosSecure.get('/api/admin/tasks', {
+                params: { role: 'admin' }, 
             });
             return res.data;
         },
@@ -19,11 +23,11 @@ const ManageTasks = () => {
 
     const handleDelete = async (taskId) => {
         try {
-            await axios.delete(`http://localhost:3000/api/admin/tasks/${taskId}`, {
-                params: { role: 'admin' }, // Pass the role as a query parameter
+            await axiosSecure.delete(`/api/admin/tasks/${taskId}`, {
+                params: { role: 'admin' }, 
             });
             toast.success('Task deleted successfully!');
-            refetch(); // Refetch tasks after deletion
+            refetch(); 
         } catch (error) {
             console.error('Error deleting task:', error);
             toast.error('Failed to delete task.');
@@ -31,7 +35,7 @@ const ManageTasks = () => {
     };
 
     if (isLoading) {
-        return <div className="flex justify-center items-center h-64">Loading...</div>;
+        return <Loading2></Loading2>;
     }
 
     return (

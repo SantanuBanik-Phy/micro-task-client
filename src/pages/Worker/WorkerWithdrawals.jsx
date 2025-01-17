@@ -5,18 +5,21 @@ import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading2 from '../../components/Loading2';
 
 const WorkerWithdrawals = () => {
     const { user } = useContext(AuthContext);
     const [coin, setCoin] = useState(0);
     const { register, handleSubmit, reset } = useForm();
+    const axiosSecure = useAxiosSecure();
 
     // Fetch worker data
     const { data: worker = {}, isLoading } = useQuery({
         queryKey: ['worker', user?.email],
         queryFn: async () => {
             if (!user?.email) return {};
-            const res = await axios.get(`http://localhost:3000/api/users/${user?.email}`);
+            const res = await axiosSecure.get(`/api/users/${user?.email}`);
             return res.data;
         },
     });
@@ -24,7 +27,7 @@ const WorkerWithdrawals = () => {
     // Create a withdrawal request
     const { mutate: createWithdrawal, isLoading: withdrawalLoading } = useMutation({
         mutationFn: async (withdrawalData) => {
-            const res = await axios.post('http://localhost:3000/api/withdrawals', withdrawalData);
+            const res = await axiosSecure.post('/api/withdrawals', withdrawalData);
             return res.data;
         },
         onSuccess: () => {
@@ -55,9 +58,7 @@ const WorkerWithdrawals = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner"></span>
-            </div>
+           <Loading2></Loading2>
         );
     }
 

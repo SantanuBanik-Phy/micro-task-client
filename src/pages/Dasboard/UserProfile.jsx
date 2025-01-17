@@ -3,17 +3,19 @@ import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 const UserProfile = () => {
     const { user, updateUser } = useContext(AuthContext); 
     const { register, handleSubmit, reset } = useForm();
     const [profileData, setProfileData] = useState({});
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/users/profile?email=${user.email}`);
+                const response = await axiosSecure.get(`/users/profile?email=${user.email}`);
                 setProfileData(response.data);
             } catch (error) {
                 console.error('Error fetching profile data:', error);
@@ -28,7 +30,7 @@ const UserProfile = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.patch(`http://localhost:3000/users/profile?email=${user.email}`, data);
+            const response = await axiosSecure.patch(`/users/profile?email=${user.email}`, data);
             if (response.status === 200) {
                 // Update Firebase user profile
                 await updateUser({ displayName: data.name, photoURL: data.photoURL });

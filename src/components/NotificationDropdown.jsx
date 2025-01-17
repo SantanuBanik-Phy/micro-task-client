@@ -2,17 +2,19 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import axios from 'axios';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const NotificationDropdown = () => {
     const { user } = useContext(AuthContext);
     const [notifications, setNotifications] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/notifications', {
+                const response = await axiosSecure.get('/api/notifications', {
                     params: { email: user?.email },
                 });
                 setNotifications(response.data);

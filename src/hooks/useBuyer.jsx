@@ -1,4 +1,4 @@
-// src/hooks/useBuyer.jsx
+
 import { useEffect, useState } from "react"
 
 const useBuyer = email => {

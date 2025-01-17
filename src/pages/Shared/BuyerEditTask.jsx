@@ -3,15 +3,18 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Loading from '../../components/Loading';
 
 const BuyerEditTask = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     // Get refetch function from DashboardLayout
     const { refetchUserCoins } = useOutletContext();
@@ -20,7 +23,7 @@ const BuyerEditTask = () => {
     const { data: task = {}, isLoading } = useQuery({
         queryKey: ['task', id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/api/tasks/${id}`);
+            const res = await axiosSecure.get(`/api/tasks/${id}`);
             return res.data;
         },
     });
@@ -28,7 +31,7 @@ const BuyerEditTask = () => {
     // Mutation to update the task
     const { mutate: updateTask, isLoading: taskLoading } = useMutation({
         mutationFn: async (updatedData) => {
-            const res = await axios.put(`http://localhost:3000/api/tasks/${id}`, updatedData);
+            const res = await axiosSecure.put(`/api/tasks/${id}`, updatedData);
             return res.data;
         },
         onSuccess: () => {
@@ -46,13 +49,13 @@ const BuyerEditTask = () => {
         const updatedTask = {
             title: data.title,
             detail: data.detail,
-            submissionInfo: data.submissionInfo, // Only these fields are updated
+            submissionInfo: data.submissionInfo, 
         };
-        updateTask(updatedTask); // Update the task
+        updateTask(updatedTask); 
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading></Loading>;
     }
 
     return (
@@ -60,6 +63,7 @@ const BuyerEditTask = () => {
         <Helmet>
           <title>Edit Task - Micro Task Platform</title>
         </Helmet>
+        <Toaster></Toaster>
         <h2 className="lg:text-5xl text-3xl font-extrabold text-gray-800 mb-6 text-center">Edit Task</h2>
         <form
           onSubmit={handleSubmit(onSubmit)}

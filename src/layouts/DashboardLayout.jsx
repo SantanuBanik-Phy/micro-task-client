@@ -74,7 +74,7 @@ const DashboardLayout = () => {
     <div className="flex flex-wrap items-center w-full sm:w-auto justify-center sm:justify-end gap-4">
       {/* Available Coins */}
       <span className="text-sm md:text-base order-2 sm:order-none">
-        Available Coins: {userData?.coins || 0}
+        Available Coins: <span className='text-orange-500 font-bold'>{userData?.coins || 0}</span> 
       </span>
 
       {/* User Dropdown */}
@@ -83,7 +83,7 @@ const DashboardLayout = () => {
           className="avatar cursor-pointer"
           onClick={handleDropdownToggle}
         >
-          <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+          <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-orange-400 ring-offset-2">
             <img src={user?.photoURL || "/default-avatar.png"} alt="User" />
           </div>
         </div>
