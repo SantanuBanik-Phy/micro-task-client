@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
     const fetchUserCoins = async (email) => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/users/coins?email=${email}`
+            `https://b10-a12-server.vercel.app/api/users/coins?email=${email}`
           );
           return response.data.coins;
         } catch (error) {
@@ -58,11 +58,11 @@ const AuthProvider = ({ children }) => {
               // Generate JWT token
               const user = { email: currentUser.email };
               await axios.post(
-                'http://localhost:3000/jwt',
+                'https://b10-a12-server.vercel.app/jwt',
                 user,
                 { withCredentials: true }
               );
-              console.log("JWT generated successfully");
+              
       
               // Fetch user coins
               const coins = await fetchUserCoins(currentUser.email);
@@ -75,11 +75,11 @@ const AuthProvider = ({ children }) => {
             try {
               // Logout user on server
               await axios.post(
-                'http://localhost:3000/logout',
+                'https://b10-a12-server.vercel.app/logout',
                 {},
                 { withCredentials: true }
               );
-              console.log("User logged out successfully");
+             
             } catch (error) {
               console.error("Error during logout:", error);
             } finally {

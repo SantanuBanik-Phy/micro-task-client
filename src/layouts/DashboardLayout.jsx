@@ -25,8 +25,8 @@ const DashboardLayout = () => {
     
       const handleLogout = () => {
         logOut();
-        navigate("/"); // Redirect to home page
-        setDropdownOpen(false); // Close the dropdown
+        navigate("/"); 
+        setDropdownOpen(false); 
       };
 
        // Close dropdown if clicked outside
@@ -47,7 +47,7 @@ const DashboardLayout = () => {
         queryKey: ['user-data', user?.email],
         queryFn: async () => {
             if (!user?.email) return {};
-            const res = await axios.get(`http://localhost:3000/api/users/${user.email}`);
+            const res = await axios.get(`https://b10-a12-server.vercel.app/api/users/${user.email}`);
             return res.data;
         },
         enabled: !!user?.email, 

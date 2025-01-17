@@ -2,9 +2,9 @@ import React from "react";
 
 const BenefitsAndAdvantages = () => {
   return (
-    <section className=" py-16">
+    <section className="py-16  dark:bg-gray-900">
       <div className="container mx-auto px-6 lg:px-12">
-        <h2 className="text-4xl font-extrabold  text-white mb-12">
+        <h2 className="text-4xl font-extrabold text-white dark:text-white mb-12">
           Benefits and Advantages
         </h2>
 
@@ -15,11 +15,11 @@ const BenefitsAndAdvantages = () => {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Skill Development */}
-            <div className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
-              <div className="bg-indigo-100 p-4 rounded-full">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
+              <div className="bg-indigo-100 dark:bg-indigo-600 p-4 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-12 w-12 text-indigo-600"
+                  className="h-12 w-12 text-indigo-600 dark:text-indigo-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -32,20 +32,20 @@ const BenefitsAndAdvantages = () => {
                   />
                 </svg>
               </div>
-              <h4 className="text-xl font-medium text-gray-800 mt-4">
+              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200 mt-4">
                 Skill Development
               </h4>
-              <p className="text-sm text-gray-600 text-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">
                 Enhance your skills and gain experience by working on diverse micro-tasks.
               </p>
             </div>
 
             {/* Financial Freedom */}
-            <div className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
-              <div className="bg-green-100 p-4 rounded-full">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
+              <div className="bg-green-100 dark:bg-green-600 p-4 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-12 w-12 text-green-600"
+                  className="h-12 w-12 text-green-600 dark:text-green-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -58,20 +58,20 @@ const BenefitsAndAdvantages = () => {
                   />
                 </svg>
               </div>
-              <h4 className="text-xl font-medium text-gray-800 mt-4">
+              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200 mt-4">
                 Financial Freedom
               </h4>
-              <p className="text-sm text-gray-600 text-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">
                 Earn extra income on your own terms and achieve financial independence.
               </p>
             </div>
 
             {/* Career Growth */}
-            <div className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
-              <div className="bg-yellow-100 p-4 rounded-full">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
+              <div className="bg-yellow-100 dark:bg-yellow-600 p-4 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-12 w-12 text-yellow-600"
+                  className="h-12 w-12 text-yellow-600 dark:text-yellow-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -84,10 +84,10 @@ const BenefitsAndAdvantages = () => {
                   />
                 </svg>
               </div>
-              <h4 className="text-xl font-medium text-gray-800 mt-4">
+              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200 mt-4">
                 Career Growth
               </h4>
-              <p className="text-sm text-gray-600 text-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">
                 Build your resume and gain valuable experience for career advancement.
               </p>
             </div>
@@ -101,11 +101,11 @@ const BenefitsAndAdvantages = () => {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Increased Efficiency */}
-            <div className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
-              <div className="bg-blue-100 p-4 rounded-full">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
+              <div className="bg-blue-100 dark:bg-blue-600 p-4 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-12 w-12 text-blue-600"
+                  className="h-12 w-12 text-blue-600 dark:text-blue-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -118,20 +118,20 @@ const BenefitsAndAdvantages = () => {
                   />
                 </svg>
               </div>
-              <h4 className="text-xl font-medium text-gray-800 mt-4">
+              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200 mt-4">
                 Increased Efficiency
               </h4>
-              <p className="text-sm text-gray-600 text-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">
                 Delegate tasks and free up your time to focus on core business activities.
               </p>
             </div>
 
             {/* Cost Savings */}
-            <div className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
-              <div className="bg-purple-100 p-4 rounded-full">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
+              <div className="bg-purple-100 dark:bg-purple-600 p-4 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-12 w-12 text-purple-600"
+                  className="h-12 w-12 text-purple-600 dark:text-purple-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -144,20 +144,20 @@ const BenefitsAndAdvantages = () => {
                   />
                 </svg>
               </div>
-              <h4 className="text-xl font-medium text-gray-800 mt-4">
+              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200 mt-4">
                 Cost Savings
               </h4>
-              <p className="text-sm text-gray-600 text-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">
                 Reduce labor costs by outsourcing micro-tasks to our skilled workforce.
               </p>
             </div>
 
             {/* Scalability */}
-            <div className="p-6 bg-white rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
-              <div className="bg-red-100 p-4 rounded-full">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition duration-300">
+              <div className="bg-red-100 dark:bg-red-600 p-4 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-12 w-12 text-red-600"
+                  className="h-12 w-12 text-red-600 dark:text-red-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -168,12 +168,12 @@ const BenefitsAndAdvantages = () => {
                     strokeWidth={2}
                     d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 2-4 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                 />
-              </svg>
+                </svg>
               </div>
-              <h4 className="text-xl font-medium text-gray-800 mt-4">
+              <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200 mt-4">
                 Scalability
               </h4>
-              <p className="text-sm text-gray-600 text-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">
                 Easily scale your workforce up or down based on your project needs.
               </p>
             </div>
@@ -184,4 +184,4 @@ const BenefitsAndAdvantages = () => {
   );
 };
 
-export default BenefitsAndAdvantages; 
+export default BenefitsAndAdvantages;

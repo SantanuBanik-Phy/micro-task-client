@@ -13,7 +13,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-l from-blue-900 via-blue-700 to-blue-500 text-white">
+    <footer className="bg-gradient-to-l from-blue-900 via-blue-700 to-blue-500 text-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
       <div className="container mx-auto px-6 lg:px-16 pt-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -24,8 +24,8 @@ const Footer = () => {
               alt="Company Logo"
               className="w-40 h-10 object-cover mx-auto lg:mx-0"
             />
-            
-            <p className="text-sm text-gray-300">
+
+            <p className="text-sm text-gray-300 dark:text-gray-400">
               Empowering individuals with opportunities to earn, learn, and grow
               by completing micro-tasks efficiently.
             </p>
@@ -36,35 +36,35 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaFacebook className="text-2xl hover:text-blue-500" />
+                <FaFacebook className="text-2xl hover:text-blue-500 dark:hover:text-blue-300" />
               </a>
               <a
                 href="https://twitter.com/your-twitter-profile"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaTwitter className="text-2xl hover:text-sky-400" />
+                <FaTwitter className="text-2xl hover:text-sky-400 dark:hover:text-sky-300" />
               </a>
               <a
                 href="https://www.instagram.com/your-instagram-profile"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaInstagram className="text-2xl hover:text-pink-500" />
+                <FaInstagram className="text-2xl hover:text-pink-500 dark:hover:text-pink-300" />
               </a>
               <a
                 href="https://www.linkedin.com/your-linkedin-profile"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaLinkedin className="text-2xl hover:text-blue-700" />
+                <FaLinkedin className="text-2xl hover:text-blue-700 dark:hover:text-blue-400" />
               </a>
               <a
                 href="https://www.pinterest.com/your-pinterest-profile"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaPinterest className="text-2xl hover:text-red-600" />
+                <FaPinterest className="text-2xl hover:text-red-600 dark:hover:text-red-400" />
               </a>
             </div>
           </div>
@@ -74,22 +74,22 @@ const Footer = () => {
             <h2 className="text-xl font-semibold mb-4">Company</h2>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/" className="hover:text-yellow-400">
+                <Link to="/" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-yellow-400">
+                <Link to="/about" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   About
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400">
+                <a href="#" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   Blog
                 </a>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-yellow-400">
+                <Link to="/contact" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   Contact Us
                 </Link>
               </li>
@@ -101,22 +101,22 @@ const Footer = () => {
             <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-yellow-400">
+                <a href="#" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400">
+                <a href="#" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   User's Guide
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400">
+                <a href="#" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   Support Center
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400">
+                <a href="#" className="hover:text-yellow-400 dark:hover:text-yellow-300">
                   Press Info
                 </a>
               </li>
@@ -130,7 +130,7 @@ const Footer = () => {
               <li className="flex gap-2 items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 text-yellow-400"
+                  className="w-6 h-6 text-yellow-400 dark:text-yellow-300"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -141,7 +141,7 @@ const Footer = () => {
               <li className="flex gap-2 items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 text-yellow-400"
+                  className="w-6 h-6 text-yellow-400 dark:text-yellow-300"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -152,7 +152,7 @@ const Footer = () => {
               <li className="flex gap-2 items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 text-yellow-400"
+                  className="w-6 h-6 text-yellow-400 dark:text-yellow-300"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -165,8 +165,8 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-gray-600 mt-12"></div>
-        <div className="text-center text-gray-300 text-sm mt-6">
+        <div className="border-t border-gray-600 dark:border-gray-500 mt-12"></div>
+        <div className="text-center text-gray-300 dark:text-gray-400 text-sm mt-6">
           <p>© {currentYear} MicroTasks. All rights reserved.</p>
         </div>
       </div>

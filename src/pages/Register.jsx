@@ -79,7 +79,7 @@ const Register = () => {
         photoURL: imgResponse ? imgResponse.data.data.url : photoURL,
       });
 
-      await axios.post("http://localhost:3000/api/users/register", {
+      await axios.post("https://b10-a12-server.vercel.app/api/users/register", {
         name,
         email,
         role,

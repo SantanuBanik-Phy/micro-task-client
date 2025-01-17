@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../provider/AuthProvider';
 
  const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://b10-a12-server.vercel.app',
     withCredentials: true,
 })
 
@@ -18,14 +18,14 @@ const useAxiosSecure = () => {
         axiosSecure.interceptors.response.use(response => {
             return response;
         }, error => {
-            console.log('error in the interceptor', error.response.status);
+           
             if (error.response.status === 401 || error.response.status === 403) {
                 toast.error("Session expired. Please log in again.");
                 logOut()
                     .then(() => {
                         navigate('/login');
                     })
-                    .catch(error => console.log(error))
+                    
             }
             return Promise.reject(error);
         })

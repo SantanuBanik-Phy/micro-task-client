@@ -43,7 +43,7 @@ const CheckoutForm = ({ price, coins }) => {
             return;
         }
 
-        const { data: clientSecretData } = await axios.post('http://localhost:3000/create-payment-intent', {
+        const { data: clientSecretData } = await axiosSecure.post('/create-payment-intent', {
             price,
         });
 

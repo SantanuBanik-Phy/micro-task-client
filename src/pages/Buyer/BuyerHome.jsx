@@ -7,7 +7,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaTasks, FaRegClock, FaMoneyBillWave, FaEye, FaCheck, FaTimes } from 'react-icons/fa';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import Loading from '../../components/Loading';
+
 import Loading2 from '../../components/Loading2';
 
 const BuyerHome = () => {

@@ -4,9 +4,9 @@ import { FaUser, FaCoins } from 'react-icons/fa';
 
 const BestWorkers = ({ workers, loading }) => {
     return (
-        <div className='my-10 container mx-auto'>
+        <div className='my-10 container mx-auto '>
             <motion.h2
-                className="text-4xl font-bold text-center mb-10 "
+                className="text-4xl font-bold text-center mb-10 dark:text-gray-100"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -16,7 +16,7 @@ const BestWorkers = ({ workers, loading }) => {
 
             {loading ? (
                 <div className="flex justify-center">
-                    <span className="loading loading-infinity loading-lg"></span>
+                    <span className="loading loading-infinity loading-lg dark:text-gray-100"></span>
                 </div>
             ) : (
                 <motion.div
@@ -38,7 +38,7 @@ const BestWorkers = ({ workers, loading }) => {
                     {workers.map((worker) => (
                         <motion.div
                             key={worker._id}
-                            className="card bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 shadow-2xl hover:shadow-lg transform hover:scale-105 transition-transform duration-300 rounded-lg"
+                            className="card bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-600 shadow-2xl hover:shadow-lg transform hover:scale-105 transition-transform duration-300 rounded-lg"
                             variants={{
                                 hidden: { opacity: 0, y: 50 },
                                 visible: { opacity: 1, y: 0 },
@@ -54,10 +54,10 @@ const BestWorkers = ({ workers, loading }) => {
                                         <img src={worker.photoURL} alt={worker.name} />
                                     </div>
                                 </motion.div>
-                                <h3 className="text-2xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
+                                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2 flex items-center justify-center gap-2">
                                     <FaUser className="text-blue-500" /> {worker.name}
                                 </h3>
-                                <p className="text-lg font-medium text-gray-600 flex items-center justify-center gap-2">
+                                <p className="text-lg font-medium text-gray-600 dark:text-gray-300 flex items-center justify-center gap-2">
                                     <FaCoins className="text-yellow-500" /> <span className="font-semibold">Coins:</span> {worker.coins}
                                 </p>
                             </div>

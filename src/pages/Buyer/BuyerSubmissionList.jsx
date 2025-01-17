@@ -13,7 +13,7 @@ const BuyerSubmissionList = () => {
     const { data: submissions = [], isLoading } = useQuery({
         queryKey: ['buyer-task-submissions', id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/api/submissions/task/${id}`);
+            const res = await axios.get(`https://b10-a12-server.vercel.app/api/submissions/task/${id}`);
             return res.data;
         }
     });

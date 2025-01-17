@@ -30,7 +30,7 @@ const testimonials = [
 
 const TestimonialSection = () => {
     return (
-        <div className="my-20 px-6 md:px-16 lg:px-32 bg-gradient-to-l from-blue-950 to-blue-500 py-16 rounded-xl shadow-lg relative">
+        <div className="my-20 px-6 md:px-16 lg:px-32 bg-gradient-to-l from-blue-950 to-blue-500 dark:from-gray-800 dark:to-gray-700 py-16 rounded-xl shadow-lg relative">
             <h2 className="text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-red-500 via-orange-400 to-yellow-300 text-transparent bg-clip-text">
                 Testimonials
             </h2>
@@ -44,7 +44,7 @@ const TestimonialSection = () => {
             >
                 {testimonials.map((testimonial) => (
                     <SwiperSlide key={testimonial.id}>
-                        <div className="flex flex-col lg:flex-row items-center justify-between bg-white shadow-2xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
+                        <div className="flex flex-col lg:flex-row items-center justify-between bg-white dark:bg-gray-800 shadow-2xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
                             <div className="relative lg:w-1/2 h-64 md:h-72 lg:h-96">
                                 <img
                                     src={testimonial.image}
@@ -58,7 +58,7 @@ const TestimonialSection = () => {
                                     alt="Open Quote"
                                     className="absolute -top-8 left-4 w-16 h-16 opacity-20"
                                 />
-                                <p className="text-lg text-gray-600 leading-relaxed mb-6 relative">
+                                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 relative">
                                     {testimonial.comment}
                                 </p>
                                 <img
@@ -66,7 +66,7 @@ const TestimonialSection = () => {
                                     alt="Close Quote"
                                     className="absolute bottom-4 right-4 w-16 h-16 opacity-20"
                                 />
-                                <h3 className="text-3xl font-extrabold text-gray-800 mt-6 relative">
+                                <h3 className="text-3xl font-extrabold text-gray-800 dark:text-gray-100 mt-6 relative">
                                     {testimonial.name}
                                 </h3>
                                 <div className="w-16 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full mt-3"></div>

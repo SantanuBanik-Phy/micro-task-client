@@ -45,13 +45,13 @@ const Login = () => {
         const user = result.user;
 
         // Check if the user exists in the database
-        const response = await axios.get(`http://localhost:3000/users?email=${user.email}`);
+        const response = await axios.get(`https://b10-a12-server.vercel.app/users?email=${user.email}`);
         if (response.data.exists) {
-            console.log("User already exists in database.");
+            // console.log("User already exists in database.");
         } else {
-            console.log("New user, saving to database...");
+            // toast.success("New user, saving to database...");
             // Save the new user to the database
-            await axios.post("http://localhost:3000/api/users/register", {
+            await axios.post("https://b10-a12-server.vercel.app/api/users/register", {
                 name: user.displayName,
                 email: user.email,
                 role: "worker", // Default role for Google Sign-In users

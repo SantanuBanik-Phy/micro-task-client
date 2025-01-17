@@ -46,7 +46,7 @@ const slides = [
 
 const HeroSection = () => {
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden bg-gray-100">
+    <div className="relative w-full h-[80vh] overflow-hidden bg-gray-100 dark:bg-gray-900">
       <Swiper
         modules={[EffectFade, Pagination, Autoplay]}
         effect="fade"
@@ -57,24 +57,27 @@ const HeroSection = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-full flex items-center justify-center text-center"
+              className="relative w-full h-full flex items-center"
               style={{
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-               
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80"></div>
-              <div className="relative z-10 max-w-5xl text-white ">
+              <div className="relative z-10 max-w-8xl text-white ml-10">
                 <h1 className="text-4xl md:text-6xl font-extrabold mb-4 shadow-md">
                   {slide.title}
                 </h1>
                 <p className="text-lg md:text-xl mb-6 shadow-sm">{slide.description}</p>
                 <Link
                   to="/register"
-                  className="px-8 py-3 bg-gradient-to-r from-red-400 to-yellow-500 text-white font-semibold rounded-lg hover:from-yellow-500 hover:to-red-400 transition duration-300"
+                  className="px-8 py-3 border-2 border-transparent rounded-lg font-semibold text-white hover:border-transparent hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+                  style={{
+                    borderImage: 'linear-gradient(to right, red, yellow) 1',
+                    borderImageSlice: 1,
+                  }}
                 >
                   {slide.buttonText}
                 </Link>

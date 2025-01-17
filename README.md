@@ -4,7 +4,7 @@ A platform where users can complete microtasks to earn rewards or post tasks to 
 
 ## Live Site URL
 
-[Deployed Website URL]
+[[https://b10-a12.web.app/](https://b10-a12.web.app/)]
 
 ## Admin Credentials
 

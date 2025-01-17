@@ -91,7 +91,7 @@ const router = createBrowserRouter([
 // {
 // path: 'submission-list/:id',
 // element: <BuyerSubmissionList></BuyerSubmissionList>,
-// loader: ({ params }) => fetch(`http://localhost:3000/api/submissions/task/${params.id}`)
+// loader: ({ params }) => fetch(`https://b10-a12-server.vercel.app/api/submissions/task/${params.id}`)
 // },
 
 {
@@ -139,12 +139,12 @@ const router = createBrowserRouter([
 {
   path: 'task-details/:id',
   element: <TaskDetails></TaskDetails>,
-  loader: ({ params }) => fetch(`http://localhost:3000/api/tasks/${params.id}`)
+  loader: ({ params }) => fetch(`https://b10-a12-server.vercel.app/api/tasks/${params.id}`)
 },
 {
   path: 'edit-task/:id',
   element: <BuyerRoute><BuyerEditTask></BuyerEditTask></BuyerRoute>,
-  loader: ({ params }) => fetch(`http://localhost:3000/api/tasks/${params.id}`)
+  loader: ({ params }) => fetch(`https://b10-a12-server.vercel.app/api/tasks/${params.id}`)
 },
 {
   path:'checkout',

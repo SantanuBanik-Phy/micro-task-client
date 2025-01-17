@@ -6,10 +6,9 @@ const useWorker = email => {
     const [isWorkerLoading, setIsWorkerLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:3000/api/users/worker/${email}`)
+            fetch(`https://b10-a12-server.vercel.app/api/users/worker/${email}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     setIsWorker(data.isWorker);
                     setIsWorkerLoading(false);
                 })
