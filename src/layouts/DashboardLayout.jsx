@@ -54,11 +54,12 @@ const DashboardLayout = () => {
     });
 
     return (
-        <div>
+        <div className='flex flex-col min-h-screen w-full '>
             <Helmet>
                 <title>Dashboard - Micro Task Platform</title>
             </Helmet>
-            <div
+           <div className='w-full'>
+           <div
   className="navbar bg-cover bg-no-repeat bg-center text-white"
   style={{ backgroundImage: "url('https://i.ibb.co.com/hCMPLvh/3386851.jpg')" }}
 >
@@ -119,10 +120,11 @@ const DashboardLayout = () => {
     </div>
   </div>
 </div>
+           </div>
 
 
             {/* Dashboard Content */}
-            <div className="flex">
+            <div className="flex flex-1 w-full ">
   {/* Sidebar */}
   <div className="bg-gradient-to-r from-blue-950 to-blue-500 text-white w-20 lg:w-80  flex-shrink-0">
     <ul className="menu p-4 h-full">
@@ -297,12 +299,12 @@ const DashboardLayout = () => {
   </div>
 
   {/* Main Content */}
-  <div className="flex-1">
-    <div className="navbar bg-white shadow-md">
+  <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="navbar bg-white shadow-md w-full">
       {/* Navbar Header */}
       <h1 className="text-xl font-bold  px-4 py-2"> <span className="text-blue-900">{userData?.role || "User"}</span>  Dashboard</h1>
     </div>
-    <div className="md:p-12 p-4  bg-[url('https://i.ibb.co.com/4SW6pgV/19366.jpg')] bg-cover bg-center bg-no-repeat min-h-[calc(100vh-100px)]">
+    <div className="md:p-12 p-4 flex-1 overflow-auto  bg-[url('https://i.ibb.co.com/4SW6pgV/19366.jpg')] bg-cover bg-center bg-no-repeat min-h-[calc(100vh-100px)]">
       <Outlet context={{ refetchUserCoins: refetch }} />
     </div>
   </div>
