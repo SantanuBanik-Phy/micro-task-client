@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/";
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -47,7 +47,7 @@ const Login = () => {
         // Check if the user exists in the database
         const response = await axios.get(`https://b10-a12-server.vercel.app/users?email=${user.email}`);
         if (response.data.exists) {
-            // console.log("User already exists in database.");
+            console.log("User already exists in database.");
         } else {
             // toast.success("New user, saving to database...");
             // Save the new user to the database

@@ -51,50 +51,55 @@ const AuthProvider = ({ children }) => {
     
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-          setLoading(true); 
-      
-          if (currentUser?.email) {
-            try {
-              // Generate JWT token
-              const user = { email: currentUser.email };
-              await axios.post(
-                'https://b10-a12-server.vercel.app/jwt',
-                user,
-                { withCredentials: true }
-              );
-              
-      
-              // Fetch user coins
-              const coins = await fetchUserCoins(currentUser.email);
-              setUser({ ...currentUser, coins }); 
-            } catch (error) {
-              console.error("Error generating JWT or fetching coins:", error);
-              setUser(null); 
+            setLoading(true);
+    
+            if (currentUser?.email) {
+                try {
+                    // Generate JWT token
+                    const user = { email: currentUser.email };
+                    const response = await axios.post(
+                        'https://b10-a12-server.vercel.app/jwt',
+                        user,
+                        { withCredentials: true }
+                    );
+    
+                    const token = response.data.token;
+    
+                    // Save the token to localStorage as a fallback
+                    localStorage.setItem('jwtToken', token);
+    
+                    // Fetch user coins using email
+                    const coins = await fetchUserCoins(currentUser.email);
+                    setUser({ ...currentUser, coins });
+                } catch (error) {
+                    console.error("Error generating JWT or fetching coins:", error);
+                    setUser(null);
+                }
+            } else {
+                try {
+                    // Clear localStorage token on logout
+                    localStorage.removeItem('jwtToken');
+                    await axios.post(
+                        'https://b10-a12-server.vercel.app/logout',
+                        {},
+                        { withCredentials: true }
+                    );
+                } catch (error) {
+                    console.error("Error during logout:", error);
+                } finally {
+                    setUser(null);
+                }
             }
-          } else {
-            try {
-              // Logout user on server
-              await axios.post(
-                'https://b10-a12-server.vercel.app/logout',
-                {},
-                { withCredentials: true }
-              );
-             
-            } catch (error) {
-              console.error("Error during logout:", error);
-            } finally {
-              setUser(null); 
-            }
-          }
-      
-          setLoading(false); 
+    
+            setLoading(false);
         });
-      
+    
         return () => {
-          unsubscribe(); 
+            unsubscribe();
         };
-      }, []);
-      
+    }, []);
+    
+    
     
     const authInfo = {
         user,

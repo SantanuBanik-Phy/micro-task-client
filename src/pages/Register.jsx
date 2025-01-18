@@ -90,13 +90,13 @@ const Register = () => {
       setUser({ ...firebaseUser, coins });
 
       toast.success("Registration successful!");
-      navigate("/dashboard");
+      navigate("/");
       form.reset();
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        toast.error("This email is already in use.");
+        return toast.error("This email is already in use.");
       } else {
-        toast.error(`Registration failed: ${error.message}`);
+        return toast.error(`Registration failed: ${error.message}`);
       }
     }
   };

@@ -4,12 +4,12 @@ A platform where users can complete microtasks to earn rewards or post tasks to 
 
 ## Live Site URL
 
-[[https://b10-a12.web.app/](https://b10-a12.web.app/)]
+[https://b10-a12.web.app/](https://b10-a12.web.app/)
 
 ## Admin Credentials
 
-* **Username:** admin@example.com 
-* **Password:** password123 
+* **UserEmail:** Santanubkph@bd.com
+* **Password:** Ph1234@
 
 ## Features
 

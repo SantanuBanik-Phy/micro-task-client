@@ -7,6 +7,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import useAdmin from '../../hooks/useAdmin';
 import useBuyer from '../../hooks/useBuyer';
 import useWorker from '../../hooks/useWorker';
+import Loading from '../../components/Loading';
 
 const Dashboard = () => {
     const { user, loading } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const Dashboard = () => {
     const location = useLocation();
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading></Loading>;
     }
 
     if (isAdmin) {

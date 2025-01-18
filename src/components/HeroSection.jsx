@@ -57,7 +57,7 @@ const HeroSection = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div
-              className="relative w-full h-full flex items-center"
+              className="relative w-full h-full flex items-center object-cover"
               style={{
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: 'cover',

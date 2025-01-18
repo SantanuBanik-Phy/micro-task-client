@@ -1,20 +1,29 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import { useEffect, useState } from "react"
-
-const useWorker = email => {
+const useWorker = (email) => {
     const [isWorker, setIsWorker] = useState(false);
     const [isWorkerLoading, setIsWorkerLoading] = useState(true);
+
     useEffect(() => {
-        if (email) {
-            fetch(`https://b10-a12-server.vercel.app/api/users/worker/${email}`)
-                .then(res => res.json())
-                .then(data => {
-                    setIsWorker(data.isWorker);
-                    setIsWorkerLoading(false);
-                })
-        }
-    }, [email])
-    return [isWorker, isWorkerLoading]
-}
+        const fetchWorkerStatus = async () => {
+            if (email) {
+                try {
+                    const response = await axios.get(`https://b10-a12-server.vercel.app/api/users/worker/${email}`);
+                    setIsWorker(response.data.isWorker); // Assuming `isWorker` is in the response data
+                } catch (error) {
+                    console.error("Error fetching worker status:", error);
+                    setIsWorker(false); // Default to false if an error occurs
+                } finally {
+                    setIsWorkerLoading(false); // Ensure loading state is updated
+                }
+            }
+        };
+
+        fetchWorkerStatus();
+    }, [email]);
+
+    return [isWorker, isWorkerLoading];
+};
 
 export default useWorker;
