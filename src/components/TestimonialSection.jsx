@@ -45,13 +45,14 @@ const TestimonialSection = () => {
                 {testimonials.map((testimonial) => (
                     <SwiperSlide key={testimonial.id}>
                         <div className="flex flex-col lg:flex-row items-center justify-between bg-white dark:bg-gray-800 shadow-2xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
-                            <div className="relative lg:w-1/2 h-64 md:h-72 lg:h-96">
-                                <img
-                                    src={testimonial.image}
-                                    alt={testimonial.name}
-                                    className="absolute inset-0 w-full h-full object-cover rounded-l-xl"
-                                />
-                            </div>
+                        <div className="relative w-full lg:w-1/2 h-72  lg:h-96">
+    <img
+        referrerPolicy="no-referrer"
+        src={testimonial.image}
+        alt={testimonial.name}
+        className="absolute inset-0 w-full h-full object-cover rounded-t-xl lg:rounded-l-xl"
+    />
+</div>
                             <div className="w-full lg:w-1/2 p-8 md:p-10 relative">
                                 <img
                                     src={qoute1}

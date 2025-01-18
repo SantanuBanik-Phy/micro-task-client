@@ -90,7 +90,7 @@ const Register = () => {
       setUser({ ...firebaseUser, coins });
 
       toast.success("Registration successful!");
-      navigate("/");
+      navigate("/dashboard");
       form.reset();
     } catch (error) {
       if (error.response && error.response.status === 409) {
