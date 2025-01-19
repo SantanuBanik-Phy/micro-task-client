@@ -11,6 +11,7 @@ import googleImage from "../assets/google.png"; // Update this path to your Goog
 const Login = () => {
   const { signIn, googleSignIn, setUser, fetchUserCoins } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,6 +21,7 @@ const Login = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
+    setIsLoading(true); 
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -36,46 +38,48 @@ const Login = () => {
       .catch((error) => {
         console.error(error);
         setError(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false); 
       });
   };
 
   const handleGoogleSignIn = async () => {
+    setIsLoading(true); 
     try {
-        const result = await googleSignIn(googleProvider);
-        const user = result.user;
+      const result = await googleSignIn(googleProvider);
+      const user = result.user;
 
-        // Check if the user exists in the database
-        const response = await axios.get(`https://b10-a12-server.vercel.app/users?email=${user.email}`);
-        if (response.data.exists) {
-            console.log("User already exists in database.");
-        } else {
-            // toast.success("New user, saving to database...");
-            // Save the new user to the database
-            await axios.post("https://b10-a12-server.vercel.app/api/users/register", {
-                name: user.displayName,
-                email: user.email,
-                role: "worker", // Default role for Google Sign-In users
-                photoURL: user.photoURL,
-            });
-        }
+      // Check if the user exists in the database
+      const response = await axios.get(`https://b10-a12-server.vercel.app/users?email=${user.email}`);
+      if (!response.data.exists) {
+        // Save the new user to the database
+        await axios.post("https://b10-a12-server.vercel.app/api/users/register", {
+          name: user.displayName,
+          email: user.email,
+          role: "worker",
+          photoURL: user.photoURL,
+        });
+      }
 
-        // Fetch coins and update user state
-        const coins = await fetchUserCoins(user.email);
-        setUser({ ...user, coins });
+      // Fetch coins and update user state
+      const coins = await fetchUserCoins(user.email);
+      setUser({ ...user, coins });
 
-        toast.success("Login successful!");
-        navigate(from, { replace: true });
+      toast.success("Login successful!");
+      navigate(from, { replace: true });
     } catch (error) {
-        console.error("Error during Google Sign-In:", error);
-        setError(error.message);
+      console.error("Error during Google Sign-In:", error);
+      setError(error.message);
+    } finally {
+      setIsLoading(false); 
     }
-};
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-300 via-blue-200 to-indigo-400 flex flex-col justify-center items-center">
       <Toaster position="top-center" />
       <div className="flex flex-col lg:flex-row justify-between items-center w-full max-w-6xl px-6">
-        
         <div className="w-full lg:w-1/2 flex justify-center mb-10 lg:mb-0">
           <Lottie animationData={loginAnimation} loop={true} className="max-w-md lg:max-w-lg" />
         </div>
@@ -117,15 +121,17 @@ const Login = () => {
                   {error.replace("auth/", "").replace("-", " ")}
                 </p>
               )}
-             
             </div>
 
             <div className="form-control">
               <button
                 type="submit"
-                className="btn w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-purple-700"
+                className={`btn w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 ${
+                  isLoading ? "opacity-30 cursor-not-allowed" : ""
+                }`}
+                disabled={isLoading} 
               >
-                Log In
+                {isLoading ? "Logging In..." : "Log In"}
               </button>
             </div>
           </form>
@@ -134,10 +140,13 @@ const Login = () => {
 
           <button
             onClick={handleGoogleSignIn}
-            className="btn btn-outline w-full flex justify-center items-center space-x-3 border-gray-300 hover:bg-gray-100 py-3 rounded-xl"
+            className={`btn btn-outline w-full flex justify-center items-center space-x-3 border-gray-300 hover:bg-gray-100 py-3 rounded-xl ${
+              isLoading ? "opacity-40 cursor-not-allowed" : ""
+            }`}
+            disabled={isLoading} 
           >
             <img src={googleImage} className="w-6 h-6" alt="Google logo" />
-            <span>Continue with Google</span>
+            <span>{isLoading ? "Processing..." : "Continue with Google"}</span>
           </button>
 
           <div className="text-center mt-6">

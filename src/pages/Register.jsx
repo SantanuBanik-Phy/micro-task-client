@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
@@ -9,10 +9,12 @@ import registerAnimation from "../assets/lottie/lottie-signup.json";
 const Register = () => {
   const { createUser, updateUser, setUser, fetchUserCoins } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false); 
   const imageHostKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    setIsLoading(true); 
     const form = event.target;
     const name = form.name.value.trim();
     const photoURL = form.photoURL.value.trim();
@@ -21,39 +23,9 @@ const Register = () => {
     const role = form.role.value;
     const photo = form.image.files[0];
 
-    if (!name) {
-      toast.error("Name is required.");
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast.error("Please provide a valid email address.");
-      return;
-    }
-
-    if (!photoURL && !photo) {
-      toast.error("Please provide a photo URL or upload an image.");
-      return;
-    }
-
-    const urlRegex = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
-    if (photoURL && !urlRegex.test(photoURL)) {
-      toast.error("Please provide a valid photo URL starting with http:// or https://");
-      return;
-    }
-
-    if (!/(?=.*[A-Z])/.test(password)) {
-      toast.error("Password must contain at least one uppercase letter.");
-      return;
-    }
-
-    if (!/(?=.*[a-z])/.test(password)) {
-      toast.error("Password must contain at least one lowercase letter.");
-      return;
-    }
-
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long.");
+    if (!name || !email || !password || (!photoURL && !photo)) {
+      toast.error("All fields are required!");
+      setIsLoading(false); 
       return;
     }
 
@@ -67,6 +39,7 @@ const Register = () => {
 
         if (!imgResponse.data.success) {
           toast.error("Image upload failed. Please try again.");
+          setIsLoading(false); 
           return;
         }
       }
@@ -94,10 +67,12 @@ const Register = () => {
       form.reset();
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        return toast.error("This email is already in use.");
+        toast.error("This email is already in use.");
       } else {
-        return toast.error(`Registration failed: ${error.message}`);
+        toast.error(`Registration failed: ${error.message}`);
       }
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -190,15 +165,17 @@ const Register = () => {
             {/* Register Button */}
             <button
               type="submit"
-              className="w-full py-3 text-white bg-gradient-to-r from-purple-600 to-indigo-500 rounded-lg shadow-lg font-semibold hover:from-purple-700 hover:to-indigo-600 transition-all duration-300"
+              className={`w-full py-3 text-white bg-gradient-to-r from-purple-600 to-indigo-500 rounded-lg shadow-lg font-semibold hover:from-purple-700 hover:to-indigo-600 transition-all duration-300 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={isLoading}
             >
-              Register
+              {isLoading ? "Registering..." : "Register"}
             </button>
           </form>
 
-
           <p className="mt-6 text-center text-gray-600">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link to="/login" className="text-indigo-600 font-bold hover:underline">
               Log in
             </Link>

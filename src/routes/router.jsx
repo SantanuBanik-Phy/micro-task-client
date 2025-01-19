@@ -9,7 +9,7 @@ import Dashboard from "../pages/Dasboard/Dasboard";
 import BuyerHome from "../pages/Buyer/BuyerHome";
 import BuyerAddTask from "../pages/Buyer/BuyerAddTask";
 import BuyerMyTasks from "../pages/Buyer/BuyerMyTasks";
-// import BuyerSubmissionList from "../pages/Buyer/BuyerSubmissionList";
+
 import BuyerPurchaseCoin from "../pages/Buyer/BuyerPurchaseCoin";
 import BuyerPaymentHistory from "../pages/Buyer/BuyerPaymentHistory";
 import WorkerHome from "../pages/Worker/WorkerHome";
@@ -19,7 +19,7 @@ import AdminHome from "../pages/Admin/AdminHome";
 import WorkerWithdrawals from "../pages/Worker/WorkerWithdrawals";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageTasks from "../pages/Admin/MangeTasks";
-// import ManageSubmissions from "../pages/Admin/ManageSubmissions";
+
 import TaskDetails from "../pages/Shared/TaskDetails";
 import BuyerEditTask from "../pages/Shared/BuyerEditTask";
 import Checkout from "../pages/Buyer/Checkout";
@@ -28,6 +28,7 @@ import PrivateRoute from "./PrivateRoute";
 import BuyerRoute from "./BuyerRoute";
 import WorkerRoute from "./WorkerRoute";
 import AdminRoute from "./AdminRoute";
+import ErrorPage from "../pages/ErrorPage";
 
 
 
@@ -88,11 +89,6 @@ const router = createBrowserRouter([
     path: 'my-tasks',
     element: <BuyerRoute> <BuyerMyTasks></BuyerMyTasks></BuyerRoute>
 },
-// {
-// path: 'submission-list/:id',
-// element: <BuyerSubmissionList></BuyerSubmissionList>,
-// loader: ({ params }) => fetch(`https://b10-a12-server.vercel.app/api/submissions/task/${params.id}`)
-// },
 
 {
   path: 'purchase-coin',
@@ -131,10 +127,6 @@ const router = createBrowserRouter([
   path: 'manage-tasks',
   element: <AdminRoute><ManageTasks></ManageTasks></AdminRoute>
 },
-// {
-//   path: 'manage-submissions',
-//   element: <ManageSubmissions></ManageSubmissions>
-// },
 
 {
   path: 'task-details/:id',
@@ -163,10 +155,10 @@ const router = createBrowserRouter([
   ]
 
   },
-  // {
-  //   path: "*",
-  //   element: <ErrorPage></ErrorPage>
-  // },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>
+  },
  
 ]);
 
