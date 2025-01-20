@@ -127,7 +127,7 @@ const Login = () => {
               <button
                 type="submit"
                 className={`btn w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 ${
-                  isLoading ? "opacity-30 cursor-not-allowed" : ""
+                  isLoading ? "opacity-70 cursor-not-allowed text-black" : ""
                 }`}
                 disabled={isLoading} 
               >
@@ -141,7 +141,7 @@ const Login = () => {
           <button
             onClick={handleGoogleSignIn}
             className={`btn btn-outline w-full flex justify-center items-center space-x-3 border-gray-300 hover:bg-gray-100 py-3 rounded-xl ${
-              isLoading ? "opacity-40 cursor-not-allowed" : ""
+              isLoading ? "opacity-70 cursor-not-allowed" : ""
             }`}
             disabled={isLoading} 
           >
