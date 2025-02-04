@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query'; // TanStack Query
@@ -9,6 +9,7 @@ const UserProfile = () => {
     const { user, updateUser } = useContext(AuthContext);
     const { register, handleSubmit, reset } = useForm();
     const axiosSecure = useAxiosSecure();
+    const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
     // Fetch profile data with TanStack Query
     const { data: profileData = {}, refetch } = useQuery({
@@ -34,6 +35,7 @@ const UserProfile = () => {
                 toast.success('Profile updated successfully!');
                 refetch(); // Refetch data to update the UI
                 reset();
+                setIsModalOpen(false); // Close the modal after successful update
             }
         } catch (error) {
             console.error('Error updating profile:', error);
@@ -42,51 +44,85 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
             <Toaster />
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-3xl font-bold text-center text-black mb-6">My Profile</h2>
-                <div className="flex justify-center mb-6">
+            {/* Profile Card */}
+            <div className="w-full max-w-xl bg-white  rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                <div className="bg-gradient-to-r from-red-500 to-yellow-400 h-52  flex items-center justify-center">
+                    <h2 className="text-xl font-bold text-white tracking-wide">
+                        Welcome, {profileData?.name || 'User'}
+                    </h2>
+                </div>
+                <div className="flex flex-col items-center -mt-16 p-10">
                     <img
                         referrerPolicy="no-referrer"
                         src={profileData?.photoURL || 'https://via.placeholder.com/150'}
                         alt="User Avatar"
-                        className="w-24 h-24 rounded-full border shadow"
+                        className="w-32 h-32 rounded-full border-4 border-white shadow-md object-cover"
                     />
-                </div>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control w-full mb-4">
-                        <label className="label">
-                            <span className="label-text font-medium text-gray-600">Name</span>
-                        </label>
-                        <input
-                            type="text"
-                            defaultValue={profileData?.name}
-                            {...register('name', { required: 'Name is required' })}
-                            className="input input-bordered w-full border-gray-300 rounded-md"
-                        />
-                    </div>
-
-                    <div className="form-control w-full mb-4">
-                        <label className="label">
-                            <span className="label-text font-medium text-gray-600">Photo URL</span>
-                        </label>
-                        <input
-                            type="text"
-                            defaultValue={profileData?.photoURL}
-                            {...register('photoURL', { required: 'Photo URL is required' })}
-                            className="input input-bordered w-full border-gray-300 rounded-md"
-                        />
-                    </div>
-
+                    <h2 className="mt-4 text-2xl font-semibold text-gray-800">{profileData?.name || 'Name Not Found'}</h2>
+                    <p className="text-gray-500 text-sm">{profileData?.email}</p>
+                    <p className="text-gray-400 text-xs mt-1">
+                        Last Login Time: {new Date(profileData?.lastLogin || Date.now()).toUTCString()}
+                    </p>
                     <button
-                        type="submit"
-                        className="btn bg-gradient-to-r from-red-400 to-yellow-500 w-full py-2 rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition"
+                        onClick={() => setIsModalOpen(true)}
+                        className="mt-6 btn bg-gradient-to-r from-red-500 to-yellow-500 text-white px-6 py-2 rounded-md hover:shadow-lg hover:from-red-600 hover:to-yellow-600 transition-transform transform hover:scale-105"
                     >
                         Update Profile
                     </button>
-                </form>
+                </div>
             </div>
+
+            {/* Update Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-6 animate-fade-in-down">
+                        <h3 className="text-2xl font-bold mb-4 text-center text-gray-800">Update Profile</h3>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="form-control w-full mb-4">
+                                <label className="label">
+                                    <span className="label-text font-medium text-gray-600">Name</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={profileData?.name}
+                                    {...register('name', { required: 'Name is required' })}
+                                    className="input input-bordered w-full border-gray-300 rounded-md focus:ring focus:ring-indigo-300"
+                                />
+                            </div>
+
+                            <div className="form-control w-full mb-4">
+                                <label className="label">
+                                    <span className="label-text font-medium text-gray-600">Photo URL</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={profileData?.photoURL}
+                                    {...register('photoURL', { required: 'Photo URL is required' })}
+                                    className="input input-bordered w-full border-gray-300 rounded-md focus:ring focus:ring-indigo-300"
+                                />
+                            </div>
+
+                            <div className="flex items-center justify-between mt-6">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="btn bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 hover:shadow-md transition-transform transform hover:scale-105"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn bg-gradient-to-r from-red-500 to-yellow-500 text-white px-6 py-2 rounded-md hover:from-red-600 hover:to-yellow-600 hover:shadow-lg transition-transform transform hover:scale-105"
+                                >
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

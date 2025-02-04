@@ -1,3 +1,7 @@
+<div align="center">
+  <img height="200" src="https://raw.githubusercontent.com/SantanuBanik-Phy/service-review-project/refs/heads/main/src/assets/service-review.png"  />
+</div>
+
 # Micro-Tasking Platform
 
 A platform where users can complete microtasks to earn rewards or post tasks to get things done.

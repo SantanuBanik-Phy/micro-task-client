@@ -37,7 +37,7 @@ const Home = () => {
             <section>
                 <HeroSection />
             </section>
-            <section className="p-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-[url('https://i.ibb.co.com/qWz60KQ/freepik-expand-92212.png')] dark:bg-[url('https://i.ibb.co.com/different-bg-for-dark.png')] dark:bg-gray-900 bg-cover bg-center bg-no-repeat">
+            <section className="p-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-[url('https://i.ibb.co.com/qWz60KQ/freepik-expand-92212.png')] dark:bg-[url('https://i.ibb.co.com/different-bg-for-dark.png')] dark:bg-gray-900 bg-cover bg-center bg-no-repeat bg-fixed  ">
     <BestWorkers workers={workers} loading={loading} />
 </section>
 
@@ -47,7 +47,7 @@ const Home = () => {
             <section className="w-11/12 mx-auto py-6">
                 <WhyChooseUs />
             </section>
-            <section className="py-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-[url('https://i.ibb.co.com/NtLFmF9/5655049.jpg')] dark:bg-[url('https://i.ibb.co.com/different-bg-for-dark.png')] dark:bg-gray-900 dark:text-white bg-cover bg-center bg-no-repeat">
+            <section className="py-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-[url('https://i.ibb.co.com/NtLFmF9/5655049.jpg')] dark:bg-[url('https://i.ibb.co.com/different-bg-for-dark.png')] dark:bg-gray-900 dark:text-white bg-cover bg-center bg-no-repeat ">
     <ReactCountUp />
 </section>
             <section className="w-11/12 mx-auto py-6">
