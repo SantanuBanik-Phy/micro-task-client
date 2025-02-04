@@ -63,6 +63,32 @@ A platform where users can complete microtasks to earn rewards or post tasks to 
     * MongoDB: NoSQL database for data storage.
     * JWT (JSON Web Token):  For secure authentication and authorization.
     * Stripe:  Payment processing platform.
+ 
+## NPM Packages Used
+
+*  `@headlessui/react`: For accessible UI components.
+*  `@stripe/react-stripe-js`: For Stripe integration in React.
+*  `@stripe/stripe-js`: For Stripe JavaScript integration.
+*  `@tanstack/react-query`: For data fetching and state management.
+*  `animate.css`: For adding pre-built animations.
+*  `axios`: For making HTTP requests.
+*  `firebase`: For Firebase authentication.
+*  `localforage`: For offline data storage.
+*  `lottie-react`: For Lottie animations in React.
+*  `match-sorter`: For matching and sorting data efficiently.
+*  `motion`: For adding animations to components.
+*  `react-card-flip`: For flip card animations.
+*  `react-countup`: For animated counters.
+*  `react-dom`: For React DOM rendering.
+*  `react-helmet`: For managing the document head.
+*  `react-helmet-async`: For asynchronous management of the document head.
+*  `react-hook-form`: For form management and validation.
+*  `react-hot-toast`: For toast notifications.
+*  `react-icons`: For incorporating icons in the app.
+*  `react-responsive-carousel`: For creating responsive carousels.
+*  `react-router-dom`: For routing and navigation.
+*  `sort-by`: For sorting arrays efficiently.
+*  `swiper`: For creating responsive touch sliders.
 
 ## Installation and Setup
 
