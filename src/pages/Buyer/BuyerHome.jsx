@@ -7,8 +7,12 @@ import { AuthContext } from '../../provider/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaTasks, FaRegClock, FaMoneyBillWave, FaEye, FaCheck, FaTimes } from 'react-icons/fa';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Bar } from 'react-chartjs-2'; // Import Bar chart component
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'; // Import necessary chart components
 
 import Loading2 from '../../components/Loading2';
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale); // Register the required chart components
 
 const BuyerHome = () => {
     const { user } = useContext(AuthContext);
@@ -69,6 +73,24 @@ const BuyerHome = () => {
         return <Loading2></Loading2>;
     }
 
+    // Bar chart data
+    const chartData = {
+        labels: ['Total Tasks', 'Pending Tasks', 'Total Payments'],
+        datasets: [
+            {
+                label: 'Buyer Stats Overview',
+                data: [
+                    stats.totalTasks || 0,
+                    stats.pendingTasks || 0,
+                    stats.totalPayments || 0,
+                ],
+                backgroundColor: '#4B8F99',
+                borderColor: '#2C6B5A',
+                borderWidth: 1,
+            },
+        ],
+    };
+
     return (
         <div className="p-4 lg:p-8">
             <Helmet>
@@ -103,6 +125,14 @@ const BuyerHome = () => {
                         <div className="stat-title text-gray-500">Total Payments</div>
                         <div className="stat-value text-xl text-green-600">${stats.totalPayments || 0}</div>
                     </div>
+                </div>
+            </div>
+
+            {/* Bar Chart Section */}
+            <div className="mb-10">
+                <h3 className="text-2xl font-bold mb-4">Buyer Stats Overview (Bar Chart)</h3>
+                <div className="w-full h-80 bg-white shadow-lg rounded-lg p-4">
+                    <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
                 </div>
             </div>
 
