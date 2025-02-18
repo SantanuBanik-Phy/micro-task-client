@@ -9,6 +9,8 @@ const WorkerTaskList = () => {
     const axiosSecure = useAxiosSecure();
     const [currentPage, setCurrentPage] = useState(1); // Current page state
     const tasksPerPage = 9; // Number of tasks to display per page
+    const [searchTerm, setSearchTerm] = useState(''); // State for search term
+    const [sortOrder, setSortOrder] = useState('asc'); // State for sorting
 
     const { data: tasks = [], isLoading } = useQuery({
         queryKey: ['worker-tasks'],
@@ -22,11 +24,24 @@ const WorkerTaskList = () => {
         return <Loading2 />;
     }
 
+    // Filter tasks based on the search term (title)
+    const filteredTasks = tasks.filter((task) =>
+        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Sort tasks by price in ascending or descending order
+    const sortedTasks = filteredTasks.sort((a, b) => {
+        if (sortOrder === 'asc') {
+            return a.payableAmount - b.payableAmount;
+        }
+        return b.payableAmount - a.payableAmount;
+    });
+
     // Calculate indices for slicing tasks
     const startIndex = (currentPage - 1) * tasksPerPage;
     const endIndex = startIndex + tasksPerPage;
-    const currentTasks = tasks.slice(startIndex, endIndex);
-    const totalPages = Math.ceil(tasks.length / tasksPerPage);
+    const currentTasks = sortedTasks.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(sortedTasks.length / tasksPerPage);
 
     const handlePageChange = (page) => {
         if (page >= 1 && page <= totalPages) {
@@ -40,9 +55,39 @@ const WorkerTaskList = () => {
                 <title>Task List - Micro Task Platform</title>
             </Helmet>
             <h2 className="text-4xl font-bold text-center text-black mb-10">
-                Available Tasks ({tasks.length})
+                Available Tasks ({filteredTasks.length})
             </h2>
-            {tasks.length > 0 ? (
+
+            {/* Search and Sort Section */}
+            <div className="flex justify-between items-center mb-6">
+                
+
+                {/* Sorting Options */}
+                <div className="flex items-center space-x-4">
+                    <button
+                        onClick={() => setSortOrder('asc')}
+                        className={`px-4 py-2 rounded-md transition ${
+                            sortOrder === 'asc'
+                                ? 'bg-orange-500 text-white'
+                                : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                    >
+                        Sort by Price (Ascending)
+                    </button>
+                    <button
+                        onClick={() => setSortOrder('desc')}
+                        className={`px-4 py-2 rounded-md transition ${
+                            sortOrder === 'desc'
+                                ? 'bg-orange-500 text-white'
+                                : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                    >
+                        Sort by Price (Descending)
+                    </button>
+                </div>
+            </div>
+
+            {filteredTasks.length > 0 ? (
                 <div>
                     {/* Tasks Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
