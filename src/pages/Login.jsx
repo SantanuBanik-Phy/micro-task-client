@@ -99,7 +99,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-300 via-blue-200 to-indigo-400 flex flex-col justify-center items-center">
       <Toaster position="top-center" />
-      <div className="flex flex-col lg:flex-row justify-between items-center w-full max-w-6xl px-6">
+      <div className="flex flex-col lg:flex-row justify-between items-center w-full max-w-6xl px-6 py-6">
         <div className="w-full lg:w-1/2 flex justify-center mb-10 lg:mb-0">
           <Lottie animationData={loginAnimation} loop={true} className="max-w-md lg:max-w-lg" />
         </div>

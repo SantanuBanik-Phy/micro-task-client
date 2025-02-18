@@ -37,7 +37,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                   className={({ isActive }) =>
                     isActive
                       ? activeStyle
-                      : "hover:text-gray-400 btn btn-sm border-none text-white bg-gradient-to-r from-red-400 to-yellow-500"
+                      : ""
                   }
                 >
                   Login
@@ -47,7 +47,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                   className={({ isActive }) =>
                     isActive
                       ? activeStyle
-                      : "hover:text-gray-400 btn btn-sm border-none text-white bg-gradient-to-r from-red-400 to-yellow-500"
+                      : ""
                   }
                 >
                   Register
