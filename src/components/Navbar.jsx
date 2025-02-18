@@ -19,7 +19,7 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   return (
     <nav className="inset-0 z-10 py-2 shadow-lg  text-white bg-gradient-to-l dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 dark:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">

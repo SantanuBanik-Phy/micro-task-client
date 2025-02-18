@@ -11,6 +11,8 @@ import googleImage from "../assets/google.png"; // Update this path to your Goog
 const Login = () => {
   const { signIn, googleSignIn, setUser, fetchUserCoins } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [role, setRole] = useState('worker');
+  const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +20,24 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/dashboard";
 
   const googleProvider = new GoogleAuthProvider();
+  // Handle role tab click (worker, buyer, admin)
+  const handleRoleChange = (selectedRole) => {
+    setRole(selectedRole);
+    switch (selectedRole) {
+      case 'worker':
+        setEmail('workeremail@gmail.com...@example.com');
+        break;
+      case 'buyer':
+        setEmail('buyeremail@gmail.com...@example.com ');
+        break;
+      case 'admin':
+        setEmail('adminemail@gmail.com...@example.com');
+        break;
+      default:
+        setEmail('');
+        break;
+    }
+  };
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -91,29 +111,54 @@ const Login = () => {
             Log in to your account and explore all features.
           </p>
 
+          {/* Credential Selection Tabs */}
+          <div className="flex justify-center space-x-6 mb-6">
+            <button
+              onClick={() => handleRoleChange('worker')}
+              className={`px-6 py-2 rounded-xl transition ${role === 'worker' ? 'bg-indigo-500 text-white' : 'bg-gray-200'}`}
+            >
+              Worker
+            </button>
+            <button
+              onClick={() => handleRoleChange('buyer')}
+              className={`px-6 py-2 rounded-xl transition ${role === 'buyer' ? 'bg-indigo-500 text-white' : 'bg-gray-200'}`}
+            >
+              Buyer
+            </button>
+            <button
+              onClick={() => handleRoleChange('admin')}
+              className={`px-6 py-2 rounded-xl transition ${role === 'admin' ? 'bg-indigo-500 text-white' : 'bg-gray-200'}`}
+            >
+              Admin
+            </button>
+          </div>
+
+          {/* Login Form */}
           <form onSubmit={handleLogin}>
             <div className="form-control mb-6">
               <label className="label">
-                <span className="label-text font-medium text-gray-700">Email</span>
+                <span className="label-text font-medium text-gray-700">Email <span className="text-red-500">*</span></span>
               </label>
               <input
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="input input-bordered w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-xl p-4"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input input-bordered w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-xl p-4 text-gray-500"
                 required
               />
             </div>
 
             <div className="form-control mb-4">
               <label className="label">
-                <span className="label-text font-medium text-gray-700">Password</span>
+                <span className="label-text font-medium text-gray-700">Password <span className="text-red-500">*</span></span>
               </label>
               <input
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                className="input input-bordered w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-xl p-4"
+                className="input input-bordered w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-xl p-4 text-gray-500"
                 required
               />
               {error && (
@@ -129,7 +174,7 @@ const Login = () => {
                 className={`btn w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 ${
                   isLoading ? "opacity-70 cursor-not-allowed text-black" : ""
                 }`}
-                disabled={isLoading} 
+                disabled={isLoading}
               >
                 {isLoading ? "Logging In..." : "Log In"}
               </button>
@@ -143,7 +188,7 @@ const Login = () => {
             className={`btn btn-outline w-full flex justify-center items-center space-x-3 border-gray-300 hover:bg-gray-100 py-3 rounded-xl ${
               isLoading ? "opacity-70 cursor-not-allowed" : ""
             }`}
-            disabled={isLoading} 
+            disabled={isLoading}
           >
             <img src={googleImage} className="w-6 h-6" alt="Google logo" />
             <span>{isLoading ? "Processing..." : "Continue with Google"}</span>
