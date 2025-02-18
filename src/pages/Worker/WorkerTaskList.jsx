@@ -60,7 +60,14 @@ const WorkerTaskList = () => {
 
             {/* Search and Sort Section */}
             <div className="flex justify-between items-center mb-6">
-                
+                {/* Search Bar */}
+                <input
+                    type="text"
+                    placeholder="Search tasks by title"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="px-4 py-2 border rounded-md w-1/2 sm:w-1/3"
+                />
 
                 {/* Sorting Options */}
                 <div className="flex items-center space-x-4">
