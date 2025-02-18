@@ -52,6 +52,26 @@ const Navbar = ({ theme, toggleTheme }) => {
                 >
                   Register
                 </NavLink>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    isActive
+                      ? activeStyle
+                      : ""
+                  }
+                >
+                 About
+                </NavLink>
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    isActive
+                      ? activeStyle
+                      : ""
+                  }
+                >
+                 Contact
+                </NavLink>
               </>
             ) : (
               <>
@@ -103,8 +123,9 @@ const Navbar = ({ theme, toggleTheme }) => {
                 </div>
               </>
             )}
+            
             <a
-              href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-SantanuBanik-Phy"
+              href="https://github.com/SantanuBanik-Phy/micro-task-client/commits/main"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-400"
@@ -180,6 +201,30 @@ const Navbar = ({ theme, toggleTheme }) => {
                 >
                   Register
                 </NavLink>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${activeStyle} block`
+                      : "block px-3 py-2 rounded-md text-base hover:bg-gray-600 dark:hover:bg-gray-700"
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About
+                </NavLink>
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${activeStyle} block`
+                      : "block px-3 py-2 rounded-md text-base hover:bg-gray-600 dark:hover:bg-gray-700"
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                 Contact
+                </NavLink>
+                
+               
               </>
             ) : (
               <>
@@ -220,7 +265,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               </>
             )}
             <a
-              href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-SantanuBanik-Phy"
+              href="https://github.com/SantanuBanik-Phy/micro-task-client/commits/main"
               target="_blank"
               rel="noopener noreferrer"
               className="block px-3 py-2 rounded-md text-base hover:bg-gray-600 dark:hover:bg-gray-700"
